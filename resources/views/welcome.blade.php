@@ -85,8 +85,14 @@
         </div>
     </div>
 
+
+    <div class="flex flex-col items-center justify-center my-12">
+        <h3 class="font-quicksand !text-4xl !font-bold !mb-12">Trouvez un rendez-vous</h3>
+        <a href="{{route('schedule')}}" class="!rounded-lg !bg-blue-500 px-4 py-2 transition duration-300 !text-white/90 text-decoration-none hover:!bg-blue-700 hover:!text-white">Voir le planning</a>
+    </div>
+
     <div>
-        <form action="{{route('appointment.create')}}" method="POST">
+        <form action="{{route('appointment.store')}}" method="POST">
             @csrf
 
             <div class="row mb-3">
