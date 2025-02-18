@@ -18,6 +18,26 @@
 
     <!-- Scripts -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/schedule.css') }}">
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/dist/preact.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/hooks/dist/hooks.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@preact/signals-core@1.8.0/dist/signals-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@preact/signals@1.3.0/dist/signals.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/jsx-runtime/dist/jsxRuntime.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/compat/dist/compat.umd.js"></script>
+
+    <script src="{{ asset('js/schedule.js')}}"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@schedule-x/drag-and-drop@2.2.0/dist/core.umd.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@schedule-x/theme-default@2.2.0/dist/index.css">
+
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
@@ -50,6 +70,13 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        @auth
+                            @if(Route::is('/'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('home') }}">{{ __('Votre profile') }}</a>
+                                </li>
+                            @endif
+                        @endauth
                         @guest
                             @if (Route::has('login'))
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -62,6 +89,7 @@
                                 </li>
                             @endif
                         @else
+                            @if(Route::is('home'))
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -79,6 +107,7 @@
                                     </form>
                                 </div>
                             </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>
@@ -90,4 +119,37 @@
         </main>
     </div>
 </body>
+@if(Route::is('home') || Route::is('schedule'))
+<script>
+
+    let allSchedules = @json($schedules);
+    console.log(allSchedules);
+
+    const { createCalendar, createViewMonthAgenda, createViewMonthGrid } = window.SXCalendar;
+    const { createDragAndDropPlugin } = window.SXDragAndDrop;
+    const plugins = [
+        createDragAndDropPlugin(),
+    ]
+
+
+    const calendar = createCalendar({
+        views: [createViewMonthAgenda()],
+        events: allSchedules,
+    }, plugins)
+
+    calendar.render(document.querySelector('.calendar'))
+
+
+    $(document).ready(function () {
+        // Lorsque le bouton est cliqué, on bascule l'état du modal
+        $("button[data-target='#modalAddSchedule']").on("click", function () {
+            $("#modalAddSchedule").modal('toggle'); // Toggle l'état d'ouverture/fermeture
+        });
+    });
+
+
+
+
+</script>
+@endif
 </html>
