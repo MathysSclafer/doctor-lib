@@ -16,6 +16,7 @@ class ScheduleController extends Controller
     }
 
     public function index(){
+
         $schedules = \App\Models\Schedule::all()->map(function($schedule){
             return [
                 'id' => $schedule->id,
@@ -25,17 +26,22 @@ class ScheduleController extends Controller
                 'end' => $schedule->date . ' ' . $schedule->end_time,
             ];
         });
-        return view('schedule', compact('schedules'));
+        return view('schedule', [compact('schedules')]);
     }
 
     public function store(StoreScheduleRequest $data)
     {
-        // Récupérer la date, l'heure de début et l'heure de fin
+
+        if (Auth::user()->role !== 'doctor'){
+            return back()->with('error', 'Seuls les médecins sont autorisé a faire ca');
+        }
+
+        $this->authorize('create', Schedule::class);
+
         $date = $data['date'];
         $beginTime = $data['begin_time'];
         $endTime = $data['end_time'];
 
-        // Vérification des conflits d'horaires
         $conflict = Schedule::where('date', $date)
             ->where(function ($query) use ($beginTime, $endTime) {
                 $query->where('begin_time', '<', $endTime)
@@ -43,12 +49,10 @@ class ScheduleController extends Controller
             })
             ->exists();
 
-        // Si un conflit est détecté
         if ($conflict) {
             return back()->withInput()->with('error', 'Les horaires sélectionnés se chevauchent avec un événement existant.');
         }
 
-        // Si aucun conflit n'est trouvé, on crée le nouvel événement
         Schedule::create([
             'doctor_id' => Auth::id(),
             'date' => $date,
@@ -56,16 +60,6 @@ class ScheduleController extends Controller
             'end_time' => $endTime,
         ]);
 
-        // Redirection avec un message de succès
         return redirect()->route('home')->with('success', 'L\'événement a été ajouté avec succès!');
-    }
-
-
-
-
-    public function getSchedule(){
-       $schedules = Schedule::all();
-
-       return compact('schedules');
     }
 }

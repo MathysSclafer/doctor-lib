@@ -194,6 +194,12 @@
   }
 }
 
+
+.register-active{
+  background-color: #2b7fff !important;
+
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

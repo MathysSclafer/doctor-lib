@@ -2,7 +2,9 @@
 
 @section('content')
 
-<div class="calendar"></div>
+    @if($user_role === "medecin")
+        <div class="calendar"></div>
+    @endif
 
 <div class="modal fade" id="modalAddSchedule" tabindex="-1" role="dialog" aria-labelledby="modalAddSchedule" aria-hidden="true">
     <div class="modal-dialog" role="document">

@@ -29,7 +29,9 @@
     <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/jsx-runtime/dist/jsxRuntime.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/compat/dist/compat.umd.js"></script>
 
-    <script src="{{ asset('js/schedule.js')}}"></script>
+    @if(Route::is('home'))
+        <script src="{{ asset('js/scheduleMedic.js')}}"></script>
+    @endif
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -122,7 +124,7 @@
 @if(Route::is('home') || Route::is('schedule'))
 <script>
 
-    let allSchedules = @json($schedules);
+    let allSchedules = @json($schedules['schedules']);
     console.log(allSchedules);
 
     const { createCalendar, createViewMonthAgenda, createViewMonthGrid } = window.SXCalendar;

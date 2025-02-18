@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schedule;
 
 class HomeController extends Controller
@@ -25,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user_role = Auth::user()->role;
+
         $schedules = \App\Models\Schedule::all()->map(function($schedule){
             return [
                 'id' => $schedule->id,
@@ -34,6 +37,6 @@ class HomeController extends Controller
                 'end' => $schedule->date . ' ' . $schedule->end_time,
             ];
         });
-        return view('home', compact('schedules'));
+        return view('home', ['schedules' => compact('schedules'),'user_role' => $user_role]);
     }
 }
