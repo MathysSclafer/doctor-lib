@@ -17,6 +17,12 @@
                     {{ __('You are logged in!') }}
                 </div>
             </div>
+            <br>
+            <div class="button">
+                <form action="{{ route('schedule.index') }}">
+                    <button type="submit">Gérer vos rendez-vous</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
