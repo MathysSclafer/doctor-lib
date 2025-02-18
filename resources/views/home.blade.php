@@ -12,10 +12,15 @@
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
+
                     @endif
 
                     {{ __('You are logged in!') }}
+
                 </div>
+                <form action="{{ route('appointment') }}">
+                    <button type="submit">Prendre rendez-vous</button>
+                </form>
             </div>
         </div>
     </div>
