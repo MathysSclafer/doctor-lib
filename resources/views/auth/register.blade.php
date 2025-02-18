@@ -33,7 +33,7 @@
 
                                 @error('first_name')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $first_name }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -48,7 +48,7 @@
 
                                 @error('age')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $age }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -100,7 +100,7 @@
 
                                 @error('area')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $area }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -113,7 +113,7 @@
 
                                 @error('city')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $city }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
