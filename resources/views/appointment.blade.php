@@ -11,13 +11,12 @@
                     </div>
                 @endif
                 @if (Auth::check())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('appointment') }}">{{__('Prendre rendez-vous pour soi')}}</a>
-                            <a class="nav-link" href="{{ route('appointment') }}">{{__('Prendre rendez-vous Autrui')}}</a>
-                        </li>
-                    {{__('Vous prenez rendez vous pour')}}
-                    {{$user->name}}
-                    {{$user->firstname}}
+                        <a class="nav-link" href="{{ route('appointment') }}">{{__('Prendre rendez-vous pour soi')}}</a>
+                        <a class="nav-link" href="{{ route('appointment') }}">{{__('Prendre rendez-vous Autrui')}}</a>
+                    <h3>{{__('Vous prenez rendez-vous pour vous :')}}</h3>
+                    <li>{{__('Votre prénom est : ')}}{{$user->name}}</li>
+                    <li>{{__('Votre nom est : ')}}{{$user->first_name}}</li>
+                    <li>{{__('Vous avez : ')}}{{$user->age}}{{__(' ans')}}</li>
                 @else
                     {{__('Il faut se connecter')}}
                     <form action="{{ route('login') }}">
