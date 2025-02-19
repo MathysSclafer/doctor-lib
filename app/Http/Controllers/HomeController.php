@@ -32,7 +32,8 @@ class HomeController extends Controller
             return [
                 'id' => $schedule->id,
                 'title' => '',
-                'people' => $schedule->doctor_id,
+                'people' => $schedule->doctor->name,
+                'location' => $schedule->doctor->city,
                 'start' => $schedule->date . ' ' . $schedule->begin_time,
                 'end' => $schedule->date . ' ' . $schedule->end_time,
             ];

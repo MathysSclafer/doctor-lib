@@ -32,6 +32,9 @@
     @if(Route::is('home'))
         <script src="{{ asset('js/scheduleMedic.js')}}"></script>
     @endif
+    @if(Route::is('schedule'))
+        <script src="{{ asset('js/schedulePatient.js')}}"></script>
+    @endif
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -94,7 +97,7 @@
                             @if(Route::is('home'))
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name . " " . Auth::user()->first_name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -133,8 +136,8 @@
         createDragAndDropPlugin(),
     ]
 
-
     const calendar = createCalendar({
+        locale: 'fr-FR',
         views: [createViewMonthAgenda()],
         events: allSchedules,
     }, plugins)
@@ -143,9 +146,8 @@
 
 
     $(document).ready(function () {
-        // Lorsque le bouton est cliqué, on bascule l'état du modal
         $("button[data-target='#modalAddSchedule']").on("click", function () {
-            $("#modalAddSchedule").modal('toggle'); // Toggle l'état d'ouverture/fermeture
+            $("#modalAddSchedule").modal('toggle');
         });
     });
 

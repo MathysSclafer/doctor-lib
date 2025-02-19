@@ -21,12 +21,13 @@ class ScheduleController extends Controller
             return [
                 'id' => $schedule->id,
                 'title' => '',
-                'people' => $schedule->doctor_id,
+                'people' => $schedule->doctor->name . ' ' . $schedule->doctor->first_name,
+                'location' => $schedule->doctor->city,
                 'start' => $schedule->date . ' ' . $schedule->begin_time,
                 'end' => $schedule->date . ' ' . $schedule->end_time,
             ];
         });
-        return view('schedule', [compact('schedules')]);
+        return view('schedule', ['schedules' => compact('schedules')]);
     }
 
     public function store(StoreScheduleRequest $data)
@@ -59,6 +60,8 @@ class ScheduleController extends Controller
             'begin_time' => $beginTime,
             'end_time' => $endTime,
         ]);
+
+        dd(Schedule::all());
 
         return redirect()->route('home')->with('success', 'L\'événement a été ajouté avec succès!');
     }

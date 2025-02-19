@@ -618,12 +618,15 @@
         build() {
             return new CalendarEventImpl(this._config, this.id, this.start, this.end, this.title, this.people, this.location, this.description, this.calendarId, this._options, this._customContent, this._foreignProperties);
         }
+
         withTitle(title) {
             this.title = title;
+            console.log(title);
             return this;
         }
         withPeople(people) {
             this.people = people;
+            console.log(people);
             return this;
         }
         withLocation(location) {
@@ -4586,14 +4589,98 @@
             }
         };
         const hasCustomContent = (_a = calendarEvent._customContent) === null || _a === void 0 ? void 0 : _a.monthAgenda;
-        return (jsxRuntime.jsxs("div", { className: "sx__event sx__month-agenda-event bg-violet-300 px-2 py-3 duration-300 hover:bg-violet-200", "data-ccid": customComponentId, "data-event-id": calendarEvent.id, style: {
-                color: customComponent ? undefined : eventCSSVariables.color,
-                borderLeft: customComponent ? undefined : eventCSSVariables.borderLeft,
-            }, onClick: (e) => onClick(e), onKeyDown: onKeyDown, tabIndex: 0, role: "button", children: [!customComponent && !hasCustomContent && (jsxRuntime.jsxs(preact.Fragment, { children: [jsxRuntime.jsx("div", { className: "sx__month-agenda-event__title", children: calendarEvent.title }), jsxRuntime.jsxs("div", { className: "sx__month-agenda-event__time sx__month-agenda-event__has-icon", children: [jsxRuntime.jsx(TimeIcon, { strokeColor: `var(--sx-color-on-${calendarEvent._color}-container)` }), jsxRuntime.jsx("div", { dangerouslySetInnerHTML: {
-                            __html: getTimeStamp(calendarEvent, $app.config.locale.value),
-                        } })] })] })), hasCustomContent && (jsxRuntime.jsx("div", { dangerouslySetInnerHTML: {
-                    __html: ((_b = calendarEvent._customContent) === null || _b === void 0 ? void 0 : _b.monthAgenda) || '',
-                } }))] }));
+        return (
+            jsxRuntime.jsxs("div", {
+                className: "",
+                "data-ccid": customComponentId,
+                "data-event-id": calendarEvent.id,
+                onClick: (e) => onClick(e),
+                onKeyDown: onKeyDown,
+                tabIndex: 0,
+                role: "button",
+                children: [
+                    !customComponent && !hasCustomContent && (
+                        jsxRuntime.jsxs(preact.Fragment, {
+                            children: [
+                                jsxRuntime.jsxs("div", {
+                                    className: "mb-10",
+                                    children: [
+                                        jsxRuntime.jsxs("div", {
+                                            className: "schedule-details hover:!bg-grey/50 !ring ring-transparent transition duration-300 hover:ring-black/20 !bg-white p-4 rounded-lg shadow-md duration-300",
+                                            children: [
+                                                jsxRuntime.jsxs("div", {
+                                                    className: "detail-item mb-2 text-sm font-medium",
+                                                    children: [
+                                                        jsxRuntime.jsx("span", {
+                                                            className: "label text-gray-500",
+                                                            children: "Docteur: "
+                                                        }),
+                                                        jsxRuntime.jsx("span", {
+                                                            className: "value text-blue-600",
+                                                            children: calendarEvent.people
+                                                        })
+                                                    ]
+                                                }),
+                                                jsxRuntime.jsxs("div", {
+                                                    className: "detail-item mb-2 text-sm font-medium",
+                                                    children: [
+                                                        jsxRuntime.jsx("span", {
+                                                            className: "label text-gray-500",
+                                                            children: "Horaire: "
+                                                        }),
+                                                        jsxRuntime.jsx("span", {
+                                                            className: "value text-green-600",
+                                                            dangerouslySetInnerHTML: {
+                                                                __html: getTimeStamp(calendarEvent, $app.config.locale.value)
+                                                            }
+                                                        })
+                                                    ]
+                                                }),
+                                                jsxRuntime.jsxs("div", {
+                                                    className: "detail-item mb-2 text-sm font-medium",
+                                                    children: [
+                                                        jsxRuntime.jsx("span", {
+                                                            className: "label text-gray-500",
+                                                            children: "Emplacement: "
+                                                        }),
+                                                        jsxRuntime.jsx("span", {
+                                                            className: "value text-gray-700",
+                                                            children: calendarEvent.location || "Non spécifié"
+                                                        })
+                                                    ]
+                                                }),
+                                                jsxRuntime.jsxs("div", {
+                                                    className: "detail-item text-sm font-medium",
+                                                    children: [
+                                                        jsxRuntime.jsx("span", {
+                                                            className: "label text-gray-500",
+                                                            children: "Rôle: "
+                                                        }),
+                                                        jsxRuntime.jsx("span", {
+                                                            className: "value text-purple-600",
+                                                            children: calendarEvent.role || "Médecin"
+                                                        })
+                                                    ]
+                                                })
+                                            ]
+                                        })
+
+                                    ]
+                                })
+                            ]
+                        })
+                    ),
+                    hasCustomContent && (
+                        jsxRuntime.jsx("div", {
+                            dangerouslySetInnerHTML: {
+                                __html: ((_b = calendarEvent._customContent) === null || _b === void 0 ? void 0 : _b.monthAgenda) || '',
+                            }
+                        })
+                    )
+                ]
+            })
+        );
+
     }
 
     const MonthAgendaEvents = ({ events, selectedDate }) => {
@@ -4605,7 +4692,7 @@
 
         return (
             jsxRuntime.jsx("div", {
-                className: "",
+                className: "flex justify-evenly flew-w",
                 children: [
                     events.length ? (
                         events.map((event) => (
@@ -4627,12 +4714,7 @@
                             className: "sx__month-agenda-events__empty",
                             children: "Aucun rendez-vous",
                         })
-                    ),jsxRuntime.jsx("button", {
-                        className: "!flex !items-center !justify-center !mx-auto !my-4 !px-6 !py-2 !rounded-lg !bg-blue-500 !transition !duration-300 !text-white/90 hover:!bg-blue-700 hover:!text-white",
-                        "data-toggle": "modal",
-                        "data-target": "#modalAddSchedule",
-                        children: "Ajouter un événement",
-                    }),
+                    ),
                 ],
             })
         );
@@ -4691,7 +4773,7 @@
                             week: agendaMonth.weeks[0]
                         }),
                         jsxRuntime.jsx("div", {
-                            className: "sx__month-agenda-weeks",
+                            className: "sx__month-agenda-weeks shadow-sm mb-10",
                             children: agendaMonth.weeks.map((week, index) => (
                                 jsxRuntime.jsx(MonthAgendaWeek, {
                                     week: week,
