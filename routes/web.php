@@ -24,4 +24,4 @@ Route::get('/schedule/{id?}', [App\Http\Controllers\ScheduleController::class, '
 Route::get('/appointment', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
 Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
-Route::post('/appointmentCreated', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');
+Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');

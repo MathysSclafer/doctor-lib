@@ -6,6 +6,7 @@ use App\Http\Requests\StoreScheduleRequest;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\TextUI\XmlConfiguration\UpdateSchemaLocation;
 
 class ScheduleController extends Controller
 {
@@ -59,7 +60,6 @@ class ScheduleController extends Controller
         // Redirection avec un message de succès
         return redirect()->route('home')->with('success', 'L\'événement a été ajouté avec succès!');
     }
-
 
 
 

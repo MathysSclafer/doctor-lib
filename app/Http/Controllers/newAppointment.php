@@ -17,7 +17,7 @@ class newAppointment extends Controller
     {
         $user = Auth::user();
         $doctor = User::find(1);
-        $schedules = Schedule::where('doctor_id', $doctor->id)->where('patient_id', Null)->get();
+        $schedules = Schedule::where('doctor_id', $doctor->id)->whereNull('patient_id')->get();
         return view('appointment', compact('doctor','schedules','user'));
     }
 
@@ -41,7 +41,8 @@ class newAppointment extends Controller
             return view('appointment', compact('doctor','schedules','user'));}
         else{
             $schedule = Schedule::find($scheduleId);
-
+            $schedule-> patient_id = $request -> patient_id;
+            $schedule->save();
 
             return appointment::create([
                 'date' => $schedule->date,
@@ -54,12 +55,15 @@ class newAppointment extends Controller
                 'patient_first_name'=> $request -> patient_first_name,
             ]);
 
+            return response()->json([$schedule], 201);
 
 
             return redirect()->route('home');
         }
 
     }
+
+
 
     protected function up(array $data)
     {
