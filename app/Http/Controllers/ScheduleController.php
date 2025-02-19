@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\TextUI\XmlConfiguration\UpdateSchemaLocation;
 
 class ScheduleController extends Controller
 {
@@ -57,6 +58,7 @@ class ScheduleController extends Controller
             })
             ->exists();
 
+        // Si un conflit est détecté
         if ($conflict) {
             return back()->withInput()->with('error', 'Les horaires sélectionnés se chevauchent avec un événement existant.');
         }

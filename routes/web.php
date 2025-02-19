@@ -8,6 +8,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::post('/', [\App\Http\Controllers\AppointmentController::class, 'create'])->name('appointment.create');
+Route::get('/schedule', [App\Http\Controllers\ScheduleController::class, 'index'])->name('schedule.index');
 
 Route::post('/home', [App\Http\Controllers\ScheduleController::class, 'store'])->name('schedule.store');
 
@@ -25,3 +27,9 @@ Route::get('/search/{search?}', [App\Http\Controllers\ScheduleController::class,
 
 Route::get('/schedule/{schedule}/modify', [App\Http\Controllers\ScheduleController::class, 'indexModify'])->name('schedule.index');
 
+
+
+Route::get('/appointment', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
+Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
+
+Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');

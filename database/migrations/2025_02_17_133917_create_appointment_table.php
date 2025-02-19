@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->time('time');
-            $table->string('patient_id');
+            $table->integer('patient_id');
+            $table->string('patient_name');
+            $table->string('patient_email');
+            $table->string('patient_first_name');
             $table->string('doctor_id');
             $table->string('type');
             $table->timestamps();
