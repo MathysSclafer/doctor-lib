@@ -4586,21 +4586,60 @@
             }
         };
         const hasCustomContent = (_a = calendarEvent._customContent) === null || _a === void 0 ? void 0 : _a.monthAgenda;
-        return (jsxRuntime.jsxs("div", { className: "sx__event sx__month-agenda-event bg-violet-300 px-2 py-3 duration-300 hover:bg-violet-200", "data-ccid": customComponentId, "data-event-id": calendarEvent.id, style: {
-                color: customComponent ? undefined : eventCSSVariables.color,
-                borderLeft: customComponent ? undefined : eventCSSVariables.borderLeft,
-            }, onClick: (e) => onClick(e), onKeyDown: onKeyDown, tabIndex: 0, role: "button", children: [!customComponent && !hasCustomContent && (jsxRuntime.jsxs(preact.Fragment, { children: [jsxRuntime.jsx("div", { className: "sx__month-agenda-event__title", children: calendarEvent.title }), jsxRuntime.jsxs("div", { className: "sx__month-agenda-event__time sx__month-agenda-event__has-icon", children: [jsxRuntime.jsx(TimeIcon, { strokeColor: `var(--sx-color-on-${calendarEvent._color}-container)` }), jsxRuntime.jsx("div", { dangerouslySetInnerHTML: {
-                            __html: getTimeStamp(calendarEvent, $app.config.locale.value),
-                        } })] })] })), hasCustomContent && (jsxRuntime.jsx("div", { dangerouslySetInnerHTML: {
-                    __html: ((_b = calendarEvent._customContent) === null || _b === void 0 ? void 0 : _b.monthAgenda) || '',
-                } }))] }));
+        return (
+            jsxRuntime.jsxs("button", {
+                className: "sx__event sx__month-agenda-event !bg-violet-300 my-1 w-full px-2 py-3 duration-300 hover:!bg-violet-200",
+                "data-ccid": customComponentId,
+                style: {
+                    color: customComponent ? undefined : eventCSSVariables.color,
+                    borderLeft: customComponent ? undefined : eventCSSVariables.borderLeft,
+                },
+                onClick: (e) => onClick(e),
+                onKeyDown: onKeyDown,
+                tabIndex: 0,
+                role: "button",
+                children: [
+                    !customComponent && !hasCustomContent && (
+                        jsxRuntime.jsxs(preact.Fragment, {
+                            children: [
+                                jsxRuntime.jsx("div", {
+                                    className: "sx__month-agenda-event__title",
+                                    children: calendarEvent.title,
+                                }),
+                                jsxRuntime.jsxs("div", {
+                                    className: "sx__month-agenda-event__time sx__month-agenda-event__has-icon",
+                                    children: [
+                                        jsxRuntime.jsx(TimeIcon, {
+                                            strokeColor: `var(--sx-color-on-${calendarEvent._color}-container)`,
+                                        }),
+                                        jsxRuntime.jsx("div", {
+                                            dangerouslySetInnerHTML: {
+                                                __html: getTimeStamp(calendarEvent, $app.config.locale.value),
+                                            },
+                                        }),
+                                    ],
+                                }),
+                            ],
+                        })
+                    ),
+                    hasCustomContent && (
+                        jsxRuntime.jsx("div", {
+                            dangerouslySetInnerHTML: {
+                                __html: ((_b = calendarEvent._customContent) === null || _b === void 0 ? void 0 : _b.monthAgenda) || '',
+                            },
+                        })
+                    ),
+                ],
+            })
+        );
+
     }
 
     const MonthAgendaEvents = ({ events, selectedDate }) => {
         const $app = hooks.useContext(AppContext);
 
         const handleEventClick = (event) => {
-            alert(`Événement sélectionné : ${event.title}\nDate : ${selectedDate}`);
+
         };
 
         return (

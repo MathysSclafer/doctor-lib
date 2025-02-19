@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreScheduleRequest;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,18 +31,24 @@ class ScheduleController extends Controller
         return view('schedule', ['schedules' => compact('schedules')]);
     }
 
+    public function indexModify(Schedule $schedule)
+    {
+        $this->authorize('viewModify', $schedule);
+
+
+        return view('schedule_modify', compact('schedule'));
+    }
+
+
     public function store(StoreScheduleRequest $data)
     {
-
-        if (Auth::user()->role !== 'doctor'){
-            return back()->with('error', 'Seuls les médecins sont autorisé a faire ca');
-        }
 
         $this->authorize('create', Schedule::class);
 
         $date = $data['date'];
         $beginTime = $data['begin_time'];
         $endTime = $data['end_time'];
+
 
         $conflict = Schedule::where('date', $date)
             ->where(function ($query) use ($beginTime, $endTime) {
@@ -61,8 +68,57 @@ class ScheduleController extends Controller
             'end_time' => $endTime,
         ]);
 
-        dd(Schedule::all());
-
         return redirect()->route('home')->with('success', 'L\'événement a été ajouté avec succès!');
+    }
+
+    public function update(StoreScheduleRequest $data, Schedule $schedule)
+    {
+        $this->authorize('update', $schedule);
+
+        $date = $data['date'];
+        $beginTime = $data['begin_time'];
+        $endTime = $data['end_time'];
+
+        $conflict = Schedule::where('date', $date)
+            ->where(function ($query) use ($beginTime, $endTime) {
+                $query->where('begin_time', '<', $endTime)
+                    ->where('end_time', '>', $beginTime);
+            })
+            ->exists();
+
+        if ($conflict) {
+            return back()->with('error', 'Les horaires se chevauchent avec un autre événement.');
+        }
+
+        $schedule->update([
+            'date' => $date,
+            'begin_time' => $beginTime,
+            'end_time' => $endTime,
+        ]);
+
+        return redirect()->route('schedule.index', ['schedule' => $schedule->id]);
+    }
+
+    public function delete(Schedule $schedule){
+
+        $this->authorize('delete', $schedule);
+
+        $schedule->delete();
+
+        return redirect()->route('home')->with('success', 'Le rendez-vous a été supprimé avec succès.');
+    }
+
+
+
+    public function search(Request $request){
+
+        $search = $request->input('search');
+        $results = User::where('name', 'like', "%$search%")
+            ->orWhere('area', 'like', "%$search%")
+            ->orWhere('city', 'like', "%$search%")
+            ->orWhere('first_name', 'like', "%$search%")
+            ->get();
+
+        return view('search', ['search' => "$search", 'results' => $results]);
     }
 }

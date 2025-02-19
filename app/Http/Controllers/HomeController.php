@@ -26,9 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user_role = Auth::user()->role;
-
-        $schedules = \App\Models\Schedule::all()->map(function($schedule){
+        $schedules = \App\Models\Schedule::where('doctor_id', Auth::id())->get()->map(function($schedule){
             return [
                 'id' => $schedule->id,
                 'title' => '',
@@ -38,6 +36,9 @@ class HomeController extends Controller
                 'end' => $schedule->date . ' ' . $schedule->end_time,
             ];
         });
-        return view('home', ['schedules' => compact('schedules'),'user_role' => $user_role]);
+
+        return view('home', ['user_role' => Auth::user()->role,'schedules' => ['schedules' => $schedules]]);
     }
-}
+
+    }
+
