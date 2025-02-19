@@ -4664,7 +4664,7 @@
                     ) : (
                         jsxRuntime.jsx("div", {
                             className: "sx__month-agenda-events__empty",
-                            children: "Aucun rendez-vous",
+                            children: "Aucune horaire",
                         })
                     ),jsxRuntime.jsx("button", {
                         className: "!flex !items-center !justify-center !mx-auto !my-4 !px-6 !py-2 !rounded-lg !bg-blue-500 !transition !duration-300 !text-white/90 hover:!bg-blue-700 hover:!text-white",

@@ -9,6 +9,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::post('/', [\App\Http\Controllers\AppointmentController::class, 'create'])->name('appointment.create');
+
 Route::get('/schedule', [App\Http\Controllers\ScheduleController::class, 'index'])->name('schedule.index');
 
 Route::post('/home', [App\Http\Controllers\ScheduleController::class, 'store'])->name('schedule.store');
@@ -25,7 +26,7 @@ Route::get('/doctor/{id?}', [App\Http\Controllers\ScheduleController::class, 'in
 
 Route::get('/search/{search?}', [App\Http\Controllers\ScheduleController::class, 'search'])->name('search');
 
-Route::get('/schedule/{schedule}/modify', [App\Http\Controllers\ScheduleController::class, 'indexModify'])->name('schedule.index');
+Route::get('/schedule/{schedule}/modify', [App\Http\Controllers\ScheduleController::class, 'indexModify'])->name('schedule.modify');
 
 
 

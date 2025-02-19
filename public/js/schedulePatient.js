@@ -3489,8 +3489,10 @@
     };
 
     const invokeOnEventClickCallback = ($app, calendarEvent) => {
-        if ($app.config.callbacks.onEventClick) {
-            $app.config.callbacks.onEventClick(calendarEvent._getExternalEvent());
+        if(calendarEvent.calendarId === null){
+            if ($app.config.callbacks.onEventClick) {
+                $app.config.callbacks.onEventClick(calendarEvent._getExternalEvent());
+            }
         }
     };
 
@@ -4606,17 +4608,18 @@
                                     className: "mb-10",
                                     children: [
                                         jsxRuntime.jsxs("div", {
-                                            className: "schedule-details hover:!bg-grey/50 !ring ring-transparent transition duration-300 hover:ring-black/20 !bg-white p-4 rounded-lg shadow-md duration-300",
+                                            className: `schedule-details !ring ring-transparent transition duration-300 hover:ring-black/20
+                                            bg-white p-4 rounded-lg shadow-md duration-300 ${calendarEvent.calendarId !== null ? "!bg-red-400 opacity-60" : ""}`,
                                             children: [
                                                 jsxRuntime.jsxs("div", {
                                                     className: "detail-item mb-2 text-sm font-medium",
                                                     children: [
                                                         jsxRuntime.jsx("span", {
-                                                            className: "label text-gray-500",
+                                                            className: `label text-gray-500 ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
                                                             children: "Docteur: "
                                                         }),
                                                         jsxRuntime.jsx("span", {
-                                                            className: "value text-blue-600",
+                                                            className: `value text-blue-600  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
                                                             children: calendarEvent.people
                                                         })
                                                     ]
@@ -4625,11 +4628,11 @@
                                                     className: "detail-item mb-2 text-sm font-medium",
                                                     children: [
                                                         jsxRuntime.jsx("span", {
-                                                            className: "label text-gray-500",
+                                                            className: `label text-gray-500  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
                                                             children: "Horaire: "
                                                         }),
                                                         jsxRuntime.jsx("span", {
-                                                            className: "value text-green-600",
+                                                            className: `value text-green-600  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
                                                             dangerouslySetInnerHTML: {
                                                                 __html: getTimeStamp(calendarEvent, $app.config.locale.value)
                                                             }
@@ -4640,11 +4643,11 @@
                                                     className: "detail-item mb-2 text-sm font-medium",
                                                     children: [
                                                         jsxRuntime.jsx("span", {
-                                                            className: "label text-gray-500",
+                                                            className: `label text-gray-500  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
                                                             children: "Emplacement: "
                                                         }),
                                                         jsxRuntime.jsx("span", {
-                                                            className: "value text-gray-700",
+                                                            className: `value text-gray-700  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
                                                             children: calendarEvent.location || "Non spécifié"
                                                         })
                                                     ]
@@ -4653,11 +4656,11 @@
                                                     className: "detail-item text-sm font-medium",
                                                     children: [
                                                         jsxRuntime.jsx("span", {
-                                                            className: "label text-gray-500",
+                                                            className: `label text-gray-500  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
                                                             children: "Rôle: "
                                                         }),
                                                         jsxRuntime.jsx("span", {
-                                                            className: "value text-purple-600",
+                                                            className: `value text-purple-600  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
                                                             children: calendarEvent.role || "Médecin"
                                                         })
                                                     ]
@@ -4687,7 +4690,7 @@
         const $app = hooks.useContext(AppContext);
 
         const handleEventClick = (event) => {
-            alert(`Événement sélectionné : ${event.title}\nDate : ${selectedDate}`);
+
         };
 
         return (

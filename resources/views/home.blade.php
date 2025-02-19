@@ -9,7 +9,7 @@
     @endif
 
     @if($user_role === "medecin")
-        <div class="calendar"></div>
+        <div class="calendar mx-20"></div>
     @endif
 
 <div class="modal fade" id="modalAddSchedule" tabindex="-1" role="dialog" aria-labelledby="modalAddSchedule" aria-hidden="true">

@@ -49,13 +49,13 @@ class newAppointment extends Controller
                 'time' => $schedule->begin_time,
                 'doctor_id'=> $request -> doctor_id,
                 'patient_id'=> $request -> patient_id,
+                'schedule_id'=> $schedule->id,
                 'patient_name'=> $request -> patient_name,
                 'patient_email'=> $request -> patient_email,
                 'type'=> $type,
                 'patient_first_name'=> $request -> patient_first_name,
             ]);
 
-            $schedule-> appointment_id = $newApoint -> id;
             $schedule->save();
 
             return response()->json([$schedule, $newApoint], 201);

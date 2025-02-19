@@ -24,6 +24,7 @@ class Appointment extends Authenticatable
         'time',
         'doctor_id',
         'patient_id',
+        'schedule_id',
         'patient_name',
         'patient_first_name',
         'patient_email',

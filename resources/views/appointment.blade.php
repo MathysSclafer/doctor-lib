@@ -11,9 +11,13 @@
                     </div>
                 @endif
                 @if (Auth::check())
-                    <a class="nav-link" href="{{ route('appointment') }}"></a>
-                    <a class="nav-link" href="{{ route('appointmentForOther') }}">{{__('Prendre rendez-vous Autrui')}}</a>
-                    <h3>{{__('Vous prenez rendez-vous pour vous :')}}</h3>
+                    <div>
+                        <p>Vous ne prenez pas rendez-vous pour vous ?
+                            <a class="" href="{{ route('appointmentForOther') }}">{{__('cliquez ici')}}</a>
+                        </p>
+                        <a class="" href="{{ route('appointment') }}"></a>
+                    <h3>
+                        {{__('Vous prenez rendez-vous pour vous :')}}</h3>
                     <form method ="POST" action="{{route('newAppointment')}}">
 
                         @csrf

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('patient_email');
             $table->string('patient_first_name');
             $table->string('doctor_id');
+            $table->foreignId('schedule_id')->constrained('schedule');
             $table->string('type');
             $table->timestamps();
         });

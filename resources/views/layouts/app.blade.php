@@ -126,45 +126,50 @@
         </main>
     </div>
 </body>
+
+@php
+    $route = '';
+    if (Route::is('home')) {
+        $route = route('schedule.modify', ['schedule' => '__schedule_id__']);
+    } elseif (Route::is('schedule')) {
+        $route = route('appointment', ['schedule' => '__schedule_id__']);
+    }
+@endphp
+
 @if(Route::is('home') || Route::is('schedule'))
-<script>
+    <script>
+        allSchedules = @json($schedules['schedules']);
+        console.log(allSchedules);
 
-    allSchedules = @json($schedules['schedules']);
-    console.log(allSchedules);
+        let route = "{{ $route }}";
 
-    const { createCalendar, createViewMonthAgenda, createViewMonthGrid } = window.SXCalendar;
-    const { createDragAndDropPlugin } = window.SXDragAndDrop;
-    const plugins = [
-        createDragAndDropPlugin(),
-    ]
+        const { createCalendar, createViewMonthAgenda } = window.SXCalendar;
+        const { createDragAndDropPlugin } = window.SXDragAndDrop;
+        const plugins = [
+            createDragAndDropPlugin(),
+        ];
 
+        const calendar = createCalendar({
+            locale: 'fr-FR',
+            views: [createViewMonthAgenda()],
+            events: allSchedules,
+            callbacks: {
+                onEventClick(calendarEvent) {
+                    let dynamicRoute = route.replace('__schedule_id__', calendarEvent.id);
 
-    const calendar = createCalendar({
-        locale: 'fr-FR',
-        views: [createViewMonthAgenda()],
-        events: allSchedules,
-        callbacks:{
-            onEventClick(calendarEvent) {
-                window.location.href = "{{ route('schedule.index', ['schedule' => '__schedule_id__']) }}".replace('__schedule_id__', calendarEvent.id);
+                    window.location.href = dynamicRoute;
+                }
             }
+        }, plugins);
 
-        }
-    }, plugins)
+        calendar.render(document.querySelector('.calendar'));
 
-    calendar.render(document.querySelector('.calendar'))
-
-
-
-
-    $(document).ready(function () {
-        $("button[data-target='#modalAddSchedule']").on("click", function () {
-            $("#modalAddSchedule").modal('toggle');
+        $(document).ready(function () {
+            $("button[data-target='#modalAddSchedule']").on("click", function () {
+                $("#modalAddSchedule").modal('toggle');
+            });
         });
-    });
-
-
-
-
-</script>
+    </script>
 @endif
+
 </html>
