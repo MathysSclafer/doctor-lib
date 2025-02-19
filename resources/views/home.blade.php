@@ -50,7 +50,6 @@
                     <div class="row mb-3">
                         <label for="end_time" class="col-md-4 col-form-label text-md-end">{{ __('Heure de fin') }}</label>
 
-                    @endif
 
                         <div class="col-md-6">
                             <input id="end_time" type="time" class="form-control @error('end_time') is-invalid @enderror" name="end_time" required>
@@ -68,20 +67,21 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         <button type="submit" class="btn btn-primary">{{ __("Ajouter l'horaire") }}</button>
                     </div>
+                    <form action="{{ route('schedule.index') }}">
+                        <button type="submit">Gérer vos rendez-vous</button>
+                    </form>
                 </form>
                     {{ __('You are logged in!') }}
 
                 </div>
-                <form action="{{ route('appointment') }}">
-                    <button type="submit">Prendre rendez-vous</button>
-                </form>
+                    <div class="button">
+                        <form action="{{ route('appointment') }}">
+                            <button type="submit">Prendre rendez-vous</button>
+                        </form>
+                    </div>
             </div>
             <br>
-            <div class="button">
-                <form action="{{ route('schedule.index') }}">
-                    <button type="submit">Gérer vos rendez-vous</button>
-                </form>
-            </div>
+
         </div>
     </div>
 </div>

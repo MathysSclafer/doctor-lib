@@ -24,4 +24,6 @@ class AppointmentController extends Controller
 
         dd(Appointment::all());
     }
+
+
 }

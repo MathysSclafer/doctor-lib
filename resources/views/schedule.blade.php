@@ -7,5 +7,4 @@
     <div class="calendar"></div>
 
 
-    @foreach($schedule) @endforeach
 @endsection

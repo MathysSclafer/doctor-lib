@@ -24,6 +24,10 @@ class Appointment extends Authenticatable
         'time',
         'doctor_id',
         'patient_id',
+        'patient_name',
+        'patient_first_name',
+        'patient_email',
+        'type',
     ];
 
 
@@ -35,6 +39,7 @@ class Appointment extends Authenticatable
     protected function casts(): array
     {
         return [
+
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
