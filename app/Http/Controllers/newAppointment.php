@@ -42,7 +42,6 @@ class newAppointment extends Controller
         else{
             $schedule = Schedule::find($scheduleId);
 
-            Schedule::whereId($scheduleId)->update($validatedData);
 
             return appointment::create([
                 'date' => $schedule->date,
