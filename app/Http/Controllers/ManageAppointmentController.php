@@ -16,7 +16,7 @@ class ManageAppointmentController extends Controller
     }
 
     public function delete($appointment) {
-        $appointmentItem = Schedule::find($appointment);
+        $appointmentItem = Appointment::find($appointment);
 
         $appointmentItem->delete();
 
@@ -24,10 +24,8 @@ class ManageAppointmentController extends Controller
     }
 
     public function update($appointment) {
-        $appointmentItem = Schedule::find($appointment);
+        $appointmentItem = Appointment::find($appointment);
 
         $appointmentItem->update();
-
-
     }
 }

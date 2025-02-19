@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class AppointmentController extends Controller
 {
 
-    protected function create(StoreAppointmentRequest $data){
+    protected function store(StoreAppointmentRequest $data){
 
         Appointment::create([
                 'date' => $data['date'],
@@ -24,4 +24,6 @@ class AppointmentController extends Controller
 
         dd(Appointment::all());
     }
+
+
 }
