@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ManageAppointmentController;
 use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
@@ -14,6 +15,6 @@ Auth::routes();
 // Appointment
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/', [AppointmentController::class, 'create'])->name('appointment.create');
-Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
-Route::get('/schedule/delete/appointment{schedule}', [ScheduleController::class, 'delete'])->name('schedule.delete');
-Route::get('/schedule/update/appointment{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
+Route::get('/manageAppointment', [ManageAppointmentController::class, 'index'])->name('manage.index');
+Route::get('/manageAppointment/delete/appointment{schedule}', [ManageAppointmentController::class, 'delete'])->name('manage.delete');
+Route::get('/manageAppointment/update/appointment{schedule}', [ManageAppointmentController::class, 'update'])->name('manage.update');

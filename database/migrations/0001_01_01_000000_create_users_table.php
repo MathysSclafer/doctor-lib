@@ -23,10 +23,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->string('first_name');
-            $table->integer('age');
-            $table->string('area');
-            $table->string('city');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -18,7 +18,7 @@
                 </div>
             </div>
             <br>
-            <a href="{{ route('schedule.index') }}">Gérer vos rendez-vous</a>
+            <a href="{{ route('manage.index') }}">Gérer vos rendez-vous</a>
         </div>
     </div>
 </div>
