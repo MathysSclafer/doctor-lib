@@ -12,12 +12,15 @@ class ManageAppointment extends Model
         return $this->belongsTo(User::class);
     }
     protected $fillable = [
+        'id',
         'date',
         'time',
         'patient_id',
         'patient_name',
+        'patient_email',
         'patient_first_name',
         'doctor_id',
+        'schedule_id',
         'type',
     ];
 }
