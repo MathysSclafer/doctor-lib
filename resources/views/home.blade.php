@@ -18,11 +18,7 @@
                 </div>
             </div>
             <br>
-            <div class="button">
-                <form action="{{ route('schedule.index') }}">
-                    <button type="submit">Gérer vos rendez-vous</button>
-                </form>
-            </div>
+            <a href="{{ route('schedule.index') }}">Gérer vos rendez-vous</a>
         </div>
     </div>
 </div>
