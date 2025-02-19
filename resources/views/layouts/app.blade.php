@@ -108,8 +108,16 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('profileSection') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('acount-form').submit();">
+                                        {{ __('Profil') }}
+                                    </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    <form id="acount-form" action="{{ route('profileSection') }}" method="GET" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
