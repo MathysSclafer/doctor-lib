@@ -42,9 +42,9 @@ class newAppointment extends Controller
         else{
             $schedule = Schedule::find($scheduleId);
             $schedule-> patient_id = $request -> patient_id;
-            $schedule->save();
 
-            return appointment::create([
+
+            $newApoint = appointment::create([
                 'date' => $schedule->date,
                 'time' => $schedule->begin_time,
                 'doctor_id'=> $request -> doctor_id,
@@ -55,7 +55,10 @@ class newAppointment extends Controller
                 'patient_first_name'=> $request -> patient_first_name,
             ]);
 
-            return response()->json([$schedule], 201);
+            $schedule-> appointment_id = $newApoint -> id;
+            $schedule->save();
+
+            return response()->json([$schedule, $newApoint], 201);
 
 
             return redirect()->route('home');
