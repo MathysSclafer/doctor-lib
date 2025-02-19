@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class SchedulePolicy
 {
@@ -24,12 +25,18 @@ class SchedulePolicy
         return $user->id === $schedule->doctor_id || $user->id === $schedule->patient_id;
     }
 
+
+    public function viewModify(User $user, Schedule $schedule): bool
+    {
+        return $user->id === $schedule->doctor_id;
+    }
+
     /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
     {
-        return $user->role === 'doctor';
+        return $user->role === 'medecin';
     }
 
     /**
@@ -37,9 +44,7 @@ class SchedulePolicy
      */
     public function update(User $user, Schedule $schedule): bool
     {
-        return $user->id === $schedule->doctor_id
-            ? Response::allow()
-            : Response::deny('Vous ne pouvez pas faire ca!');
+        return $user->id === $schedule->doctor_id;
     }
 
     /**
@@ -47,9 +52,7 @@ class SchedulePolicy
      */
     public function delete(User $user, Schedule $schedule): bool
     {
-        return $user->id === $schedule->doctor_id
-            ? Response::allow()
-            : Response::deny('Vous ne pouvez supprimer que vos propres horaires.');
+        return $user->id === $schedule->doctor_id;
     }
 
     /**

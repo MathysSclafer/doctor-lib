@@ -9,9 +9,21 @@
                 <span class="after:absolute after:w-3/5 after:h-5 after:bg-blue-300 after:right-5 after:bottom-0 after:-z-20">simplement</span>
                 !</h1>
             <p class="max-w-lg text-sm my-4 text-black/50">Facilitez vos rendez-vous médicaux avec notre plateforme intuitive. Trouvez un professionnel de santé près de chez vous, consultez ses disponibilités et prenez rendez-vous en quelques clics. Simplifiez votre parcours de soin et gagnez du temps dès aujourd’hui !</p>
-            <div class="flex">
-                <button class="!rounded-lg bg-blue-500 px-4 py-2 transition duration-300 text-white/90 hover:bg-blue-700 hover:text-white">Prendre rendez-vous</button>
-            </div>
+            <form action="{{ route('search') }}" method="GET"
+                  class="flex rounded-full w-5/6 bg-blue-400 px-1 py-1 group hover:bg-blue-700 transition duration-300 ease-in-out">
+
+                <input class="rounded-full w-5/6 bg-white px-3 py-3 hover:outline-none focus-visible:outline-none font-quicksand !font-semibold"
+                       type="search" name="search" placeholder="Nom/Region/Ville">
+
+                <button type="submit"
+                        class="font-quicksand !font-bold text-white/95  px-3 py-2 rounded-full transition duration-300 ease-in-out">
+                    Rechercher
+                </button>
+            </form>
+
+            <!--<div class="flex">
+                <a href="{{route('schedule')}}" class="!rounded-lg !bg-blue-500 px-4 py-2 transition duration-300 !text-white/90 text-decoration-none hover:!bg-blue-700 hover:!text-white">Prendre rendez-vous</a>
+            </div> -->
         </div>
         <div >
             <img src="../../doctorImg.png" alt="" class="h-80">
@@ -89,80 +101,5 @@
     <div class="flex flex-col items-center justify-center my-12">
         <h3 class="font-quicksand !text-4xl !font-bold !mb-12">Trouvez un rendez-vous</h3>
         <a href="{{route('schedule')}}" class="!rounded-lg !bg-blue-500 px-4 py-2 transition duration-300 !text-white/90 text-decoration-none hover:!bg-blue-700 hover:!text-white">Voir le planning</a>
-    </div>
-
-    <div>
-        <form action="{{route('appointment.store')}}" method="POST">
-            @csrf
-
-            <div class="row mb-3">
-                <label for="date" class="col-md-4 col-form-label text-md-end">{{ __('Date') }}</label>
-
-                <div class="col-md-6">
-                    <input id="date" type="date" class="form-control @error('date') is-invalid @enderror" name="date" required>
-
-                    @error('date')
-                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
-                </div>
-            </div>
-
-
-            <div class="row mb-3">
-                <label for="time" class="col-md-4 col-form-label text-md-end">{{ __('Temps') }}</label>
-
-                <div class="col-md-6">
-                    <input id="time" type="time" class="form-control @error('time') is-invalid @enderror" name="time" required>
-
-                    @error('time')
-                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
-                </div>
-            </div>
-
-
-            <div class="row mb-3">
-                <label for="doctor_id" class="col-md-4 col-form-label text-md-end">{{ __('Id du docteur') }}</label>
-
-                <div class="col-md-6">
-                    <input id="doctor_id" type="text" class="form-control @error('doctor_id') is-invalid @enderror" name="doctor_id" required>
-
-                    @error('doctor_id')
-                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
-                </div>
-            </div>
-
-
-            <div class="row mb-3">
-                <label for="type" class="col-md-4 col-form-label text-md-end">{{ __('Type') }}</label>
-
-                <div class="col-md-6">
-                    <input id="type" type="text" class="form-control @error('type') is-invalid @enderror" name="type" required>
-
-                    @error('type')
-                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                    @enderror
-                </div>
-            </div>
-
-
-            <div class="row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Enregistrer') }}
-                    </button>
-                </div>
-            </div>
-
-        </form>
     </div>
 @endsection

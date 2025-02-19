@@ -2,6 +2,12 @@
 
 @section('content')
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     @if($user_role === "medecin")
         <div class="calendar"></div>
     @endif
