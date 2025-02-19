@@ -12,13 +12,52 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/schedule.css') }}">
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/dist/preact.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/hooks/dist/hooks.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@preact/signals-core@1.8.0/dist/signals-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@preact/signals@1.3.0/dist/signals.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/jsx-runtime/dist/jsxRuntime.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/compat/dist/compat.umd.js"></script>
+
+    @if(Route::is('home'))
+        <script src="{{ asset('js/scheduleMedic.js')}}"></script>
+    @endif
+    @if(Route::is('schedule'))
+        <script src="{{ asset('js/schedulePatient.js')}}"></script>
+    @endif
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@schedule-x/drag-and-drop@2.2.0/dist/core.umd.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@schedule-x/theme-default@2.2.0/dist/index.css">
+
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <script src="https://kit.fontawesome.com/1e46e56962.js" crossorigin="anonymous"></script>
+
+
 </head>
+<style>
+    .font-quicksand{
+        font-family: 'Quicksand', sans-serif;
+    }
+</style>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-white bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -27,7 +66,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class=" navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
@@ -36,9 +75,15 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        @auth
+                            @if(Route::is('/'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('home') }}">{{ __('Votre profile') }}</a>
+                                </li>
+                            @endif
+                        @endauth
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
@@ -49,9 +94,10 @@
                                 </li>
                             @endif
                         @else
+                            @if(Route::is('home'))
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name . " " . Auth::user()->first_name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -66,15 +112,48 @@
                                     </form>
                                 </div>
                             </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 ">
             @yield('content')
         </main>
     </div>
 </body>
+@if(Route::is('home') || Route::is('schedule'))
+<script>
+
+    let allSchedules = @json($schedules['schedules']);
+    console.log(allSchedules);
+
+    const { createCalendar, createViewMonthAgenda, createViewMonthGrid } = window.SXCalendar;
+    const { createDragAndDropPlugin } = window.SXDragAndDrop;
+    const plugins = [
+        createDragAndDropPlugin(),
+    ]
+
+    const calendar = createCalendar({
+        locale: 'fr-FR',
+        views: [createViewMonthAgenda()],
+        events: allSchedules,
+    }, plugins)
+
+    calendar.render(document.querySelector('.calendar'))
+
+
+    $(document).ready(function () {
+        $("button[data-target='#modalAddSchedule']").on("click", function () {
+            $("#modalAddSchedule").modal('toggle');
+        });
+    });
+
+
+
+
+</script>
+@endif
 </html>
