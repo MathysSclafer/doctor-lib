@@ -23,9 +23,14 @@ class Schedule extends Model
     protected $fillable = [
         'id',
         'doctor_id',
+        'patient_id',
         'date',
         'begin_time',
         'end_time',
+    ];
+
+    protected $casts = [
+        'patient_id' => 'integer',
     ];
 
 }

@@ -53,6 +53,7 @@
                     Recevez des rappels automatiques pour ne jamais oublier un rendez-vous et gérer votre emploi du temps en toute sérénité.
                 </p>
             </div>
+            <a href="{{ route('manage.index') }}">
             <div class="flex flex-col items-center justify-center bg-white shadow-sm py-4 rounded-xl w-80 !ring ring-transparent transition duration-300 hover:ring-black/20">
                 <i class="fa-solid fa-cogs fa-2xl !text-5xl"></i>
                 <h4 class="my-3 font-quicksand !text-lg !font-bold">Gestion de vos rendez-vous</h4>
@@ -60,6 +61,7 @@
                     Accédez à votre historique de rendez-vous, modifiez ou annulez en toute simplicité directement depuis votre compte.
                 </p>
             </div>
+            </a>
         </div>
     </div>
 
