@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeEmail;
 use App\Models\Appointment;
 use App\Models\Schedule;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\NewAppointmentController;
+use Illuminate\Support\Facades\Mail;
 use phpDocumentor\Reflection\Types\Null_;
 
 class newAppointment extends Controller
@@ -62,7 +64,7 @@ class newAppointment extends Controller
             $schedule-> patient_id = $request -> patient_id;
 
 
-            $newApoint = appointment::create([
+            appointment::create([
                 'date' => $schedule->date,
                 'time' => $schedule->begin_time,
                 'doctor_id'=> $request -> doctor_id,
@@ -75,7 +77,8 @@ class newAppointment extends Controller
             ]);
 
             $schedule->save();
-
+            $doctor = User::find($request -> doctor_id);
+            $this->sendEmailAppointment($doctor ->name, $request->type,$schedule->date,$schedule->begin_time,$request->patient_email);
             return redirect()->route('search')
                 ->with('success', 'Vous avez pris rendez-vous pour le ' . \Carbon\Carbon::parse($schedule->date)->locale('fr')->isoFormat('dddd D MMMM') .
                     ' de ' . \Carbon\Carbon::parse($schedule->begin_time)->format('H\h00') .
@@ -85,6 +88,13 @@ class newAppointment extends Controller
 
     }
 
+    public function sendEmailAppointment($name_doctor, $type, $date, $start_time, $email ){
+        $toEmail = $email;
+        $message = 'Bonjour, votre rendez vous du '. $date . ' à '. $start_time .' avec le ' . $type . ' '. $name_doctor . ' est confirmé';
+        $subject = 'Confirmation de votre rendez-vous';
+
+        $reponse = mail::to($toEmail)->send(new WelcomeEmail($message, $subject));
+    }
 
 
     protected function up(array $data)

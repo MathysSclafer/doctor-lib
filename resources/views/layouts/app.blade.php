@@ -146,7 +146,7 @@
 
 @if(Route::is('home') || Route::is('schedule') || Route::is('search') || Route::is("doctor"))
     <script>
-        allSchedules = @json($schedules['schedules']);
+        allSchedules  = @json($schedules['schedules']);
         console.log(allSchedules);
 
         let route = "{{ $route }}";
