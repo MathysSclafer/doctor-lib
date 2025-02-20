@@ -38,3 +38,10 @@ Route::get('/appointment', [App\Http\Controllers\newAppointment::class, 'getpage
 Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
 Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');
+
+
+Route::get('/profil', [App\Http\Controllers\account::class, 'index'])->name('profileSection');
+Route::post('/change_name', [App\Http\Controllers\account::class, 'name'])->name('change_name');
+Route::post('/change_first_name', [App\Http\Controllers\account::class, 'first_name'])->name('change_first_name');
+Route::post('/change_age', [App\Http\Controllers\account::class, 'age'])->name('change_age');
+Route::post('/change_email', [App\Http\Controllers\account::class, 'email'])->name('change_email');
