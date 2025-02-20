@@ -58,10 +58,11 @@ class newAppointment extends Controller
 
             $schedule->save();
 
-            return response()->json([$schedule, $newApoint], 201);
+            return redirect()->route('search')
+                ->with('success', 'Vous avez pris rendez-vous pour le ' . \Carbon\Carbon::parse($schedule->date)->locale('fr')->isoFormat('dddd D MMMM') .
+                    ' de ' . \Carbon\Carbon::parse($schedule->begin_time)->format('H\h00') .
+                    " jusqu'à " . \Carbon\Carbon::parse($schedule->end_time)->format('H\h00') . " !");
 
-
-            return redirect()->route('home');
         }
 
     }

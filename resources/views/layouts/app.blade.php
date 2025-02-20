@@ -32,7 +32,7 @@
     @if(Route::is('home'))
         <script src="{{ asset('js/scheduleMedic.js')}}"></script>
     @endif
-    @if(Route::is('schedule'))
+    @if(Route::is('schedule') || Route::is("search") || Route::is("doctor"))
         <script src="{{ asset('js/schedulePatient.js')}}"></script>
     @endif
 
@@ -70,7 +70,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('schedule') }}">{{ __('Rendez-vous') }}</a>
+                            <a class="nav-link" href="{{ route('search') }}">{{ __('Prendez un rendez-vous') }}</a>
                         </li>
                     </ul>
 
@@ -121,7 +121,7 @@
             </div>
         </nav>
 
-        <main class="py-4 ">
+        <main class="py-4 relative">
             @yield('content')
         </main>
     </div>
@@ -131,12 +131,12 @@
     $route = '';
     if (Route::is('home')) {
         $route = route('schedule.modify', ['schedule' => '__schedule_id__']);
-    } elseif (Route::is('schedule')) {
+    } elseif (Route::is('schedule') || Route::is('search') || Route::is("doctor")) {
         $route = route('appointment', ['schedule' => '__schedule_id__']);
     }
 @endphp
 
-@if(Route::is('home') || Route::is('schedule'))
+@if(Route::is('home') || Route::is('schedule') || Route::is('search') || Route::is("doctor"))
     <script>
         allSchedules = @json($schedules['schedules']);
         console.log(allSchedules);

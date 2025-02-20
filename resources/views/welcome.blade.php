@@ -22,7 +22,7 @@
             </form>
 
             <!--<div class="flex">
-                <a href="{{route('schedule')}}" class="!rounded-lg !bg-blue-500 px-4 py-2 transition duration-300 !text-white/90 text-decoration-none hover:!bg-blue-700 hover:!text-white">Prendre rendez-vous</a>
+                <a href="{{route('search')}}" class="!rounded-lg !bg-blue-500 px-4 py-2 transition duration-300 !text-white/90 text-decoration-none hover:!bg-blue-700 hover:!text-white">Prendre rendez-vous</a>
             </div> -->
         </div>
         <div >
@@ -63,6 +63,25 @@
         </div>
     </div>
 
+    <div class="flex flex-col px-7 items-center justify-evenly my-24">
+        <h2 class="font-quicksand !text-4xl !font-bold !mb-12">Les chiffres</h2>
+
+        <div class="flex flex-wrap gap-5">
+            <div class="flex flex-col items-center justify-center bg-white shadow-sm py-4 rounded-xl w-36 !ring ring-transparent transition duration-300 hover:ring-black/20">
+                <h4 class="font-quicksand !text-4xl !font-black">{{$patientsCount}}</h4>
+                <p class="max-w-60 !text-lg text-black/50 mb-0 text-center">
+                   Patients
+                </p>
+            </div>
+            <div class="flex flex-col items-center justify-center bg-white shadow-sm py-4 rounded-xl w-36 !ring ring-transparent transition duration-300 hover:ring-black/20">
+                <h4 class="font-quicksand !text-4xl !font-bold">{{$medecinsCount}}</h4>
+                <p class="max-w-60 !text-lg text-black/50 mb-0 text-center">
+                    Medecins
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div class="flex px-7 items-center justify-evenly my-24">
         <h2 class="font-quicksand !text-4xl !font-bold !mb-12">Nos spécialités</h2>
         <div class="grid gap-5 grid-cols-2">
@@ -97,9 +116,4 @@
         </div>
     </div>
 
-
-    <div class="flex flex-col items-center justify-center my-12">
-        <h3 class="font-quicksand !text-4xl !font-bold !mb-12">Trouvez un rendez-vous</h3>
-        <a href="{{route('schedule')}}" class="!rounded-lg !bg-blue-500 px-4 py-2 transition duration-300 !text-white/90 text-decoration-none hover:!bg-blue-700 hover:!text-white">Voir le planning</a>
-    </div>
 @endsection

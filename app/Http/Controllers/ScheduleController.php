@@ -19,7 +19,6 @@ class ScheduleController extends Controller
 
     public function index(){
 
-
         $schedules = \App\Models\Schedule::all()->map(function($schedule){
             if ($schedule->patient) {
                 $patient_id = $schedule->patient->id;
@@ -36,6 +35,7 @@ class ScheduleController extends Controller
                 'calendarId' => $patient_id,
             ];
         });
+
         return view('schedule', ['schedules' => compact('schedules')]);
     }
 
@@ -65,7 +65,6 @@ class ScheduleController extends Controller
             })
             ->exists();
 
-        // Si un conflit est détecté
         if ($conflict) {
             return back()->withInput()->with('error', 'Les horaires sélectionnés se chevauchent avec un événement existant.');
         }
@@ -119,15 +118,66 @@ class ScheduleController extends Controller
 
 
 
-    public function search(Request $request){
-
+    public function search(Request $request)
+    {
         $search = $request->input('search');
-        $results = User::where('name', 'like', "%$search%")
-            ->orWhere('area', 'like', "%$search%")
-            ->orWhere('city', 'like', "%$search%")
-            ->orWhere('first_name', 'like', "%$search%")
+
+        $users = User::where('role', 'medecin')
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%")
+                    ->orWhere('area', 'like', "%$search%")
+                    ->orWhere('city', 'like', "%$search%")
+                    ->orWhere('first_name', 'like', "%$search%");
+            })
             ->get();
 
-        return view('search', ['search' => "$search", 'results' => $results]);
+
+        // Récupération des IDs des utilisateurs trouvés
+        $userIds = $users->pluck('id');
+
+        $schedules = Schedule::whereIn('doctor_id', $userIds)
+            ->orWhereIn('patient_id', $userIds)
+            ->get()
+            ->map(function ($schedule) {
+                return [
+                    'id' => $schedule->id,
+                    'title' => '',
+                    'people' => $schedule->doctor->name . ' ' . $schedule->doctor->first_name,
+                    'location' => $schedule->doctor->city,
+                    'start' => $schedule->date . ' ' . $schedule->begin_time,
+                    'end' => $schedule->date . ' ' . $schedule->end_time,
+                    'calendarId' => optional($schedule->patient)->id,
+                ];
+            });
+
+        return view('search', [
+            'search' => $search,
+            'results' => $users,
+            'schedules' => compact('schedules'),
+        ]);
     }
+
+
+    public function showDoctor($id){
+
+        $doctor = User::findOrFail($id);
+
+        $schedules = \App\Models\Schedule::where('doctor_id', $doctor->id)->get()->map(function($schedule){
+            return [
+                'id' => $schedule->id,
+                'title' => '',
+                'people' => $schedule->doctor->name,
+                'location' => $schedule->doctor->city,
+                'start' => $schedule->date . ' ' . $schedule->begin_time,
+                'end' => $schedule->date . ' ' . $schedule->end_time,
+            ];
+        });
+
+        return view('doctor', [
+            'doctor' => $doctor,
+            'schedules' => compact('schedules'),
+        ]);
+    }
+
+
 }

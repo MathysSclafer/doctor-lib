@@ -4695,7 +4695,7 @@
 
         return (
             jsxRuntime.jsx("div", {
-                className: "flex justify-evenly flew-w",
+                className: "flex justify-evenly flew-w flex-wrap",
                 children: [
                     events.length ? (
                         events.map((event) => (

@@ -1,10 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Models\User;
 
 Route::get('/', function () {
-    return view('welcome');
+    $patientsCount = User::all()->where('role', 'patient')->count();
+    $medecinsCount = User::all()->where('role', 'medecin')->count();
+
+    return view('welcome', compact('patientsCount', 'medecinsCount'));
 })->name('/');
+
 
 Auth::routes();
 
@@ -22,15 +27,14 @@ Route::delete('/schedule/{schedule}/delete', [\App\Http\Controllers\ScheduleCont
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/doctor/{id?}', [App\Http\Controllers\ScheduleController::class, 'index'])->name('schedule');
+Route::get('/doctor/{id?}', [App\Http\Controllers\ScheduleController::class, 'showDoctor'])->name('doctor');
 
 Route::get('/search/{search?}', [App\Http\Controllers\ScheduleController::class, 'search'])->name('search');
 
 Route::get('/schedule/{schedule}/modify', [App\Http\Controllers\ScheduleController::class, 'indexModify'])->name('schedule.modify');
 
-
-
 Route::get('/appointment', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
+
 Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
 Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');
