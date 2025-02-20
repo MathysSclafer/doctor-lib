@@ -41,5 +41,3 @@ Route::post('/change_name', [App\Http\Controllers\account::class, 'name'])->name
 Route::post('/change_first_name', [App\Http\Controllers\account::class, 'first_name'])->name('change_first_name');
 Route::post('/change_age', [App\Http\Controllers\account::class, 'age'])->name('change_age');
 Route::post('/change_email', [App\Http\Controllers\account::class, 'email'])->name('change_email');
-Route::post('/become_medecin', [App\Http\Controllers\account::class, 'medecin'])->name('devMed');
-Route::post('/become_client', [App\Http\Controllers\account::class, 'client'])->name('devCli');

@@ -88,19 +88,6 @@
                                     @enderror
                                 </form>
                             </div>
-                            <div>
-                                @if($user->role == "medecin")
-                                    <form action="{{route('devCli')}}" method ="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary">Devenir client</button>
-                                    </form>
-                                @else
-                                    <form action="{{route('devMed')}}" method ="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary">Devenir médecin</button>
-                                    </form>
-                                @endif
-                            </div>
                         </div>
                         </div>
                         @else

@@ -18,19 +18,6 @@ class account extends Controller
         return view('profil', compact('user'));
     }
 
-    public function medecin(request $request){
-        $user = Auth::user();
-        $user -> role = 'medecin';
-        $user -> save();
-        return view('profil', compact('user'));
-    }
-
-    public function client(){
-        $user = Auth::user();
-        $user -> role = 'patient';
-        $user -> save();
-        return view('profil', compact('user'));
-    }
     public function name(request $request){
         $user = Auth::user();
         $user -> name = $request -> name;
