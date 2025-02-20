@@ -22,13 +22,19 @@ class newAppointment extends Controller
         $doctor = User::find($id_doctor);
         $schedules = Schedule::where('doctor_id', $doctor->id)->whereNull('patient_id')->get();
         if(is_null($id_doctor)){
-            return view('welcome');
+            $patientsCount = User::all()->where('role', 'patient')->count();
+            $medecinsCount = User::all()->where('role', 'medecin')->count();
+
+            return view('welcome', compact('patientsCount', 'medecinsCount'));
         }
         elseif (is_null($schedules) || empty($schedules)) {
-            return view('welcome');
+            $patientsCount = User::all()->where('role', 'patient')->count();
+            $medecinsCount = User::all()->where('role', 'medecin')->count();
+
+            return view('welcome', compact('patientsCount', 'medecinsCount'));
         }
         elseif ($user -> id == $id_doctor) {
-            return view('profil');
+            return view('profil', compact('user'));
         }
         else{
             return view('appointment', compact('doctor','schedules','user'));
