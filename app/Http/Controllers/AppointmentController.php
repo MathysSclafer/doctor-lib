@@ -21,7 +21,7 @@ class AppointmentController extends Controller
 
         return view('welcome', compact('patientsCount', 'medecinsCount'));
     }
-    public function getpage($id_doctor = null)
+    public function getpage($id_doctor = null, $schedule = null)
     {
 
 
@@ -37,17 +37,12 @@ class AppointmentController extends Controller
 
             $schedules = Schedule::where('doctor_id', $doctor->id)->whereNull('patient_id')->get();
 
-            dd($schedules);
-            $this->authorize('view', $schedules);
 
-            if (is_null($schedules) || empty($schedules)) {
+            if (is_null($schedules) || empty($schedules) || $user -> id == $id_doctor) {
                 $patientsCount = User::all()->where('role', 'patient')->count();
                 $medecinsCount = User::all()->where('role', 'medecin')->count();
 
                 return view('welcome', compact('patientsCount', 'medecinsCount'));
-            }
-            elseif ($user -> id == $id_doctor) {
-                return view('profil', compact('user'));
             }
             else{
                 return view('appointment', compact('doctor','schedules','user'));

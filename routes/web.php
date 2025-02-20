@@ -46,7 +46,7 @@ Route::get('/appointment/{id_doctor?}', [App\Http\Controllers\AppointmentControl
 Route::get('/appointmentOther/{id_doctor?}', [App\Http\Controllers\AppointmentController::class, 'otherAppointment'])->name('appointmentForOther');
 
 
-Route::post('/appointment', [App\Http\Controllers\AppointmentController::class, 'store'])->name('appointment');
+Route::post('/appointment', [App\Http\Controllers\AppointmentController::class, 'store'])->name('newappointment');
 
 
 
