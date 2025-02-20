@@ -14,4 +14,9 @@ class UserPolicy
     {
         return $doctor->role === 'medecin';
     }
+
+    public function viewAdmin(User $user): bool{
+
+        return $user->role === 'medecin';
+    }
 }

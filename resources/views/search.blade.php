@@ -97,6 +97,8 @@
                         <form action="{{route('rating')}}" method="POST">
                             @csrf
 
+                            <input type="">
+
                             <input type="text" name="search" value="{{$search}}">
 
                             <input class="" type="number" id="user_id_input" name="user_id" value="">

@@ -27,46 +27,10 @@ class UserController extends Controller
 
         $this->updateNotation($data['user_id']);
 
-        $search = $data['search'];
+        $patientsCount = User::all()->where('role', 'patient')->count();
+        $medecinsCount = User::all()->where('role', 'medecin')->count();
 
-        $users = User::where('role', 'medecin')
-            ->where(function ($query) use ($search) {
-                $query->where('name', 'like', "%$search%")
-                    ->orWhere('area', 'like', "%$search%")
-                    ->orWhere('city', 'like', "%$search%")
-                    ->orWhere('first_name', 'like', "%$search%");
-            })
-            ->get();
-
-
-        $userIds = $users->pluck('id');
-
-        $schedules = Schedule::whereIn('doctor_id', $userIds)
-            ->orWhereIn('patient_id', $userIds)
-            ->get()
-            ->map(function ($schedule) {
-
-                if ($schedule->patient) {
-                    $patient_id = $schedule->patient->id;
-                } else {
-                    $patient_id = null;
-                }
-                return [
-                    'id' => $schedule->id,
-                    'title' => $schedule->doctor->first_name . ' ' . $schedule->doctor->name,
-                    'people' => $schedule->doctor->id,
-                    'location' => $schedule->doctor->city,
-                    'start' => $schedule->date . ' ' . $schedule->begin_time,
-                    'end' => $schedule->date . ' ' . $schedule->end_time,
-                    'calendarId' => $patient_id,
-                ];
-            });
-
-        return view('search', [
-            'search' => $search,
-            'results' => $users,
-            'schedules' => compact('schedules'),
-        ]);
+        return view('welcome', compact('patientsCount', 'medecinsCount'));
     }
 
     public function updateNotation($doctor_id)
@@ -77,6 +41,8 @@ class UserController extends Controller
     }
 
     public function adminIndex(){
+
+        $this->authorize('viewAdmin', User::class);
 
         $schedules = \App\Models\Schedule::where('doctor_id', Auth::id())->get()->map(function($schedule){
             if ($schedule->patient) {
