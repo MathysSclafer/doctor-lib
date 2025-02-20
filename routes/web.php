@@ -45,11 +45,13 @@ Route::get('/manage/appointment{schedule}/update', [ManageAppointmentController:
 Route::put('/appointment/{id}/modified', [ManageAppointmentController::class, 'saveUpdate'])->name('appointment.modified');
 
 Route::get('/appointment/{id_doctor?}', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
-
 Route::get('/appointmentOther/{id_doctor?}', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
 
 Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');
+
+
+
 
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 Route::post('/home', [ScheduleController::class, 'store'])->name('schedule.store');
@@ -63,6 +65,8 @@ Route::post('/change_name', [App\Http\Controllers\account::class, 'name'])->name
 Route::post('/change_first_name', [App\Http\Controllers\account::class, 'first_name'])->name('change_first_name');
 Route::post('/change_age', [App\Http\Controllers\account::class, 'age'])->name('change_age');
 Route::post('/change_email', [App\Http\Controllers\account::class, 'email'])->name('change_email');
+Route::post('/change_city', [App\Http\Controllers\account::class, 'city'])->name('change_city');
+Route::post('/change_area', [App\Http\Controllers\account::class, 'area'])->name('change_area');
 
 Route::post('/rating', [\App\Http\Controllers\UserController::class, 'storeNotation'])->name('rating');
 

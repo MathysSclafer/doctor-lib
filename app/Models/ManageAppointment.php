@@ -22,5 +22,6 @@ class ManageAppointment extends Model
         'doctor_id',
         'schedule_id',
         'type',
+        'description',
     ];
 }

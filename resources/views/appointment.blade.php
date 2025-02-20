@@ -23,6 +23,7 @@
                     <input type="hidden" id="patient_name" name="patient_name" value="{{$user->name}}">
                     <input type="hidden" id="doctor_id" name="doctor_id" value="{{$doctor->id }}">
                     <input type="hidden" id="patient_email" name="patient_email" value="{{$user->email}}">
+                    <input type="hidden" id="type" name="type" value="{{$doctor->job}}">
                     <div class="flex justify-center items-center">
                         <div class="grid grid-cols-2 gap-4 items-center mr-36 my-3">
                             <label class="text-gray-700 font-medium text-end">{{ __('Nom ') }}</label>
@@ -37,7 +38,7 @@
                             <label class="text-gray-700 font-medium text-end">{{ __('Adresse mail ') }}</label>
                             <span class="ring ring-gray-400 rounded-sm px-3 py-1 !bg-gray-200">{{$user->email}}</span>
 
-                            <label class="text-gray-700 font-medium text-end">{{ __('Docteur ') }}</label>
+                            <label class="text-gray-700 font-medium text-end">{{__('Votre rendez vous sera avec le')}}{{$doctor -> job}}{{__(' ')}}{{$doctor->name}}</label>
                             <span class="ring ring-gray-400 rounded-sm px-3 py-1 !bg-gray-200">{{$doctor->name . ' ' . $doctor->first_name}}</span>
                         </div>
                     </div>
@@ -60,7 +61,7 @@
 
                     <div class="mb-3 flex justify-center items-center gap-3">
                         <label>{{__('Description')}}</label>
-                        <textarea class="ring rounded-lg" name="type" required id="type">
+                        <textarea class="ring rounded-lg" name="description" required id="description">
 
                         </textarea>
                     </div>
@@ -71,8 +72,10 @@
                     </div>
                 </form>
             @else
-                {{ route('login') }}
-
+                <h1>{{__('Il faut se connecter')}}</h1>
+                <form action="{{ route('login') }}">
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                </form>
             @endif
 </div>
 @endsection
