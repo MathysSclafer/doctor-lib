@@ -8,8 +8,82 @@
         </div>
     @endif
 
-    @if($user_role === "medecin")
-        <div class="calendar mx-20"></div>
+
+
+
+@if(Route::is('home'))
+    <div class="max-w-4xl mx-auto mt-10">
+        <div class="bg-white shadow-lg rounded-lg p-6">
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-800">{{ Auth::user()->first_name }} {{ Auth::user()->name }}</h2>
+                <p class="text-gray-500">{{ Auth::user()->email }}</p>
+                <span class="text-sm px-3 py-1 rounded-full text-white
+                        {{ Auth::user()->role === 'medecin' ? 'bg-blue-500' : 'bg-green-500' }}">
+                {{ ucfirst(Auth::user()->role) }}
+            </span>
+            </div>
+
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold text-gray-700">Informations personnelles</h3>
+                <div class="mt-2 space-y-2">
+                    <p><span class="font-medium text-gray-600">Âge :</span> {{ Auth::user()->age }} ans</p>
+                    <p><span class="font-medium text-gray-600">Profession :</span> {{ Auth::user()->job ?? 'Non renseignée' }}</p>
+                    <p><span class="font-medium text-gray-600">Région :</span> {{ Auth::user()->area ?? 'Non renseignée' }}</p>
+                    <p><span class="font-medium text-gray-600">Ville :</span> {{ Auth::user()->city ?? 'Non renseignée' }}</p>
+                    <p><span class="font-medium text-gray-600">Note moyenne :</span> ⭐ {{ Auth::user()->rating ?? 'Aucune note' }}</p>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end gap-3">
+                <a href="{{ route('profileSection') }}" class="!bg-blue-500 text-decoration-none !text-white duration-300 px-4 py-2 rounded-lg shadow-md hover:!bg-blue-600">
+                    Modifier mon profil
+                </a>
+                @if($user_role === "medecin")
+                    <a href="{{route('admin', ['id' => auth()->user()->id])}}"
+                       class="!bg-lime-500 text-decoration-none !text-white duration-300 px-4 py-2 rounded-lg shadow-md hover:!bg-lime-600">
+                        Panel Admin
+                    </a>
+                @endif
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                   class="!bg-red-500 text-decoration-none !text-white duration-300 px-4 py-2 rounded-lg shadow-md hover:!bg-red-600">
+                    Déconnexion
+                </a>
+            </div>
+        </div>
+    </div>
+@endif
+
+
+    @if(Route::is('admin'))
+        <div class="d-flex justify-content-center table">
+            <table class="text-center table-bordered">
+                <thead>
+                <tr>
+                    <th> PATIENT </th>
+                    <th> COMMENTAIRE </th>
+                    <th> DATE </th>
+                    <th> HEURE </th>
+                </tr>
+                </thead>
+                @foreach($appointments as $appointment)
+                    @if($appointment->doctor_id == Auth::id())
+                        <tbody>
+                        <tr>
+                            <td>{{$appointment->patient_first_name}} {{$appointment->patient_name}} </td>
+                            <td>{{$appointment->type}}</td>
+                            <td>{{$appointment->date}}</td>
+                            <td>{{$appointment->time}}</td>
+                            <td><a href="{{ route('manage.finished', $appointment) }}" class="btn-primary btn-sm"> Terminé </a></td>
+                            <td><a href="{{ route('manage.update', $appointment) }}" class="btn-secondary btn-sm"> Modifier </a></td>
+                            <td><a href="{{ route('manage.delete', $appointment) }}" class="btn-danger btn-sm"> Annuler </a></td>
+                        </tr>
+                        </tbody>
+                    @endif
+                @endforeach
+            </table>
+        </div>
+        <div class="calendar"></div>
     @endif
 
 <div class="modal fade" id="modalAddSchedule" tabindex="-1" role="dialog" aria-labelledby="modalAddSchedule" aria-hidden="true">
@@ -77,4 +151,14 @@
 
         </div>
     </div>
+
+
+    <form id="acount-form" action="{{ route('profileSection') }}" method="GET" class="d-none">
+        @csrf
+    </form>
+
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
 @endsection

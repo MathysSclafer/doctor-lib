@@ -29,7 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/jsx-runtime/dist/jsxRuntime.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/preact@10.23.2/compat/dist/compat.umd.js"></script>
 
-    @if(Route::is('home'))
+    @if(Route::is('admin'))
         <script src="{{ asset('js/scheduleMedic.js')}}"></script>
     @endif
     @if(Route::is('schedule') || Route::is("search") || Route::is("doctor"))
@@ -56,7 +56,7 @@
     }
 </style>
 <body>
-    <div id="app">
+    <div id="app" class="min-h-screen">
         <nav class="navbar navbar-expand-md navbar-white bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand font-quicksand font-bold" href="{{ url('/') }}">
@@ -86,16 +86,9 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @auth
-                            @if(!Route::is('home') && auth()->user()->role === "medecin")
-                                <li class="nav-item">
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('admin', ['id' => auth()->user()->id]) }}">{{ __('Votre profil') }}</a>
-                                </li>
-                            @endif
-                            @if(Route::is('home') && auth()->user()->role === "patient")
-                                    <li class="nav-item">
-                                        <a class="nav-link font-quicksand !font-semibold" href="{{ route('home') }}">{{ __('Votre profil') }}</a>
-                                    </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link font-quicksand !font-bold" href="{{ route('home') }}">{{ __('Votre profil') }}</a>
+                            </li>
                         @endauth
 
                         @guest
@@ -109,34 +102,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link font-quicksand !font-semibold" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                                 </li>
-                            @endif
-                        @else
-                            @if(Route::is('home'))
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name . " " . Auth::user()->first_name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profileSection') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('acount-form').submit();">
-                                        {{ __('Modifier profil') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Déconnexion') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                    <form id="acount-form" action="{{ route('profileSection') }}" method="GET" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
                             @endif
                         @endguest
                     </ul>
@@ -152,19 +117,20 @@
 
 @php
     $route = '';
-    if (Route::is('home')) {
+    if (Route::is('admin')) {
         $route = route('schedule.modify', ['schedule' => '__schedule_id__']);
     } elseif (Route::is('schedule') || Route::is('search') || Route::is("doctor")) {
         $route = route('appointment', ['id_doctor' => '__doctor_id__', 'schedule' => '__schedule_id__']);
     }
 @endphp
 
-@if(Route::is('home') || Route::is('schedule') || Route::is('search') || Route::is("doctor"))
+@if(Route::is('admin') || Route::is('schedule') || Route::is('search') || Route::is("doctor"))
     <script>
         allSchedules  = @json($schedules['schedules']);
         console.log(allSchedules);
 
         let route = "{{ $route }}";
+        console.log(route);
 
         const { createCalendar, createViewMonthAgenda } = window.SXCalendar;
         const { createDragAndDropPlugin } = window.SXDragAndDrop;
@@ -238,8 +204,6 @@
         });
     </script>
 
-
-    </script>
 @endif
 
 </html>

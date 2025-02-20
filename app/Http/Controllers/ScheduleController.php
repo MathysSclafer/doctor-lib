@@ -28,7 +28,7 @@ class ScheduleController extends Controller
             }
             return [
                 'id' => $schedule->id,
-                'title' => '',
+                'title' => $schedule->doctor->first_name . ' ' . $schedule->doctor->name,
                 'people' => $schedule->doctor->id,
                 'location' => $schedule->doctor->city,
                 'start' => $schedule->date . ' ' . $schedule->begin_time,
@@ -148,7 +148,7 @@ class ScheduleController extends Controller
                 }
                 return [
                     'id' => $schedule->id,
-                    'title' => '',
+                    'title' => $schedule->doctor->first_name . ' ' . $schedule->doctor->name,
                     'people' => $schedule->doctor->id,
                     'location' => $schedule->doctor->city,
                     'start' => $schedule->date . ' ' . $schedule->begin_time,
@@ -170,13 +170,19 @@ class ScheduleController extends Controller
         $this->authorize('viewDoctor', $doctor);
 
         $schedules = \App\Models\Schedule::where('doctor_id', $doctor->id)->get()->map(function($schedule){
+            if ($schedule->patient) {
+                $patient_id = $schedule->patient->id;
+            } else {
+                $patient_id = null;
+            }
             return [
                 'id' => $schedule->id,
-                'title' => '',
-                'people' => $schedule->doctor->name,
+                'title' => $schedule->doctor->first_name . ' ' . $schedule->doctor->name,
+                'people' => $schedule->doctor->id,
                 'location' => $schedule->doctor->city,
                 'start' => $schedule->date . ' ' . $schedule->begin_time,
                 'end' => $schedule->date . ' ' . $schedule->end_time,
+                'calendarId' => $patient_id,
             ];
         });
 

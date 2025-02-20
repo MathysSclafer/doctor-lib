@@ -31,5 +31,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(Schedule::class, SchedulePolicy::class);
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(ManageAppointment::class, ManageAppointmentPolicy::class);
+        Gate::policy(Appointment::class, AppointmentPolicy::class);
     }
 }

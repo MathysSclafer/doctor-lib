@@ -182,6 +182,9 @@
   --bs-form-invalid-border-color: rgb(234, 133.8, 143.4);
 }
 
+
+
+
 *,
 *::before,
 *::after {
@@ -192,6 +195,25 @@
   :root {
     scroll-behavior: smooth;
   }
+}
+
+
+.register-active{
+  background-color: #2b7fff !important;
+}
+
+.rate input {
+  display: none;
+}
+
+.rate i {
+  color: gray;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.rate input:checked + i {
+  color: gold !important;
 }
 
 body {

@@ -18,8 +18,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Appointment
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// AppointmentController
+Route::get('/myprofile', [HomeController::class, 'index'])->name('home');
 
 Route::get('/search/{search?}', [ScheduleController::class, 'search'])->name('search');
 
@@ -31,7 +31,6 @@ Route::post('/schedule/{schedule}/modify', [ScheduleController::class, 'update']
 
 Route::delete('/schedule/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedule.delete');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/doctor/{doctor}', [App\Http\Controllers\ScheduleController::class, 'showDoctor'])->name('doctor');
 
@@ -43,11 +42,11 @@ Route::get('/manage/appointment{schedule}/delete', [ManageAppointmentController:
 Route::get('/manage/appointment{schedule}/update', [ManageAppointmentController::class, 'update'])->name('manage.update');
 Route::put('/appointment/{id}/modified', [ManageAppointmentController::class, 'saveUpdate'])->name('appointment.modified');
 
-Route::get('/appointment/{id_doctor?}', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
-Route::get('/appointmentOther/{id_doctor?}', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
+Route::get('/appointment/{id_doctor?}', [App\Http\Controllers\AppointmentController::class, 'getpage'])->name('appointment');
+Route::get('/appointmentOther/{id_doctor?}', [App\Http\Controllers\AppointmentController::class, 'otherAppointment'])->name('appointmentForOther');
 
 
-Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');
+Route::post('/appointment', [App\Http\Controllers\AppointmentController::class, 'store'])->name('appointment');
 
 
 
@@ -67,8 +66,8 @@ Route::post('/change_email', [App\Http\Controllers\account::class, 'email'])->na
 Route::post('/change_city', [App\Http\Controllers\account::class, 'city'])->name('change_city');
 Route::post('/change_area', [App\Http\Controllers\account::class, 'area'])->name('change_area');
 
-Route::post('/', [\App\Http\Controllers\UserController::class, 'storeNotation'])->name('rating');
+Route::post('/search', [\App\Http\Controllers\UserController::class, 'storeNotation'])->name('rating');
 
 Route::get('send-mail', [EmailController::class, 'sendWelcomeEmail']);
 
-Route::get('/admin/{id?}', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+Route::get('/admin/{id?}', [App\Http\Controllers\UserController::class, 'adminIndex'])->name('admin');

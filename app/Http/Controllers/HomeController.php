@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\ManageAppointment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schedule;
@@ -43,7 +45,13 @@ class HomeController extends Controller
             ];
         });
 
-        return view('home', ['user_role' => Auth::user()->role,'schedules' => ['schedules' => $schedules]]);
+
+        $allUser = User::all();
+
+        $appointments = ManageAppointment::orderBy('date', 'asc')->orderBy('time', 'asc')->get();
+
+        return view('home', ['user_role' => Auth::user()->role,'schedules' => ['schedules' => $schedules],
+            'appointments' => $appointments]);
     }
 
     }

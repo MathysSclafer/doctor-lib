@@ -4620,7 +4620,7 @@
                                                         }),
                                                         jsxRuntime.jsx("span", {
                                                             className: `value text-blue-600  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
-                                                            children: calendarEvent.people
+                                                            children: calendarEvent.title
                                                         })
                                                     ]
                                                 }),

@@ -14,7 +14,7 @@
                 </p>
                 <h3 class="text-center !font-black">
                     {{__('VOTRE RENDEZ-VOUS')}}</h3>
-                <form method ="POST" action="{{route('newAppointment')}}">
+                <form method ="POST" action="{{route('appointment')}}">
 
                     @csrf
 
@@ -38,7 +38,7 @@
                             <label class="text-gray-700 font-medium text-end">{{ __('Adresse mail ') }}</label>
                             <span class="ring ring-gray-400 rounded-sm px-3 py-1 !bg-gray-200">{{$user->email}}</span>
 
-                            <label class="text-gray-700 font-medium text-end">{{__('Votre rendez vous sera avec le')}}{{$doctor -> job}}{{__(' ')}}{{$doctor->name}}</label>
+                            <label class="text-gray-700 font-medium text-end">{{__('Docteur')}}</label>
                             <span class="ring ring-gray-400 rounded-sm px-3 py-1 !bg-gray-200">{{$doctor->name . ' ' . $doctor->first_name}}</span>
                         </div>
                     </div>

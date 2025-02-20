@@ -13,7 +13,7 @@ use App\Http\Controllers\NewAppointmentController;
 use Illuminate\Support\Facades\Mail;
 use phpDocumentor\Reflection\Types\Null_;
 
-class newAppointment extends Controller
+class AppointmentController extends Controller
 {
     public function index(){
         $patientsCount = User::all()->where('role', 'patient')->count();
@@ -23,6 +23,8 @@ class newAppointment extends Controller
     }
     public function getpage($id_doctor = null)
     {
+
+
         $user = Auth::user();
         $doctor = User::find($id_doctor);
         if(is_null($id_doctor) || is_null($doctor)){
@@ -34,6 +36,10 @@ class newAppointment extends Controller
         else{
 
             $schedules = Schedule::where('doctor_id', $doctor->id)->whereNull('patient_id')->get();
+
+            dd($schedules);
+            $this->authorize('view', $schedules);
+
             if (is_null($schedules) || empty($schedules)) {
                 $patientsCount = User::all()->where('role', 'patient')->count();
                 $medecinsCount = User::all()->where('role', 'medecin')->count();
@@ -93,10 +99,10 @@ class newAppointment extends Controller
             return view('appointment', compact('doctor','schedules','user'));}
         else{
             $schedule = Schedule::find($scheduleId);
-            $schedule-> patient_id = $request -> patient_id;
+            $schedule-> patient_id = $request->patient_id;
 
 
-            $Appoint = appointment::create([
+            $Appoint = AppointmentController::create([
                 'date' => $schedule->date,
                 'time' => $schedule->begin_time,
                 'doctor_id'=> $request -> doctor_id,
@@ -113,7 +119,7 @@ class newAppointment extends Controller
             $Appoint->save();
             $doctor = User::find($request -> doctor_id);
             $this->sendEmailAppointment($doctor ->name, $request->type,$schedule->date,$schedule->begin_time,$request->patient_email);
-            return redirect()->route('search')
+            return redirect()->route('manage.index')
                 ->with('success', 'Vous avez pris rendez-vous pour le ' . \Carbon\Carbon::parse($schedule->date)->locale('fr')->isoFormat('dddd D MMMM') .
                     ' de ' . \Carbon\Carbon::parse($schedule->begin_time)->format('H\h00') .
                     " jusqu'à " . \Carbon\Carbon::parse($schedule->end_time)->format('H\h00') . " !");
