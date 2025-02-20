@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmailController;
 use \App\Models\User;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AppointmentController;
@@ -59,3 +60,5 @@ Route::post('/change_name', [App\Http\Controllers\account::class, 'name'])->name
 Route::post('/change_first_name', [App\Http\Controllers\account::class, 'first_name'])->name('change_first_name');
 Route::post('/change_age', [App\Http\Controllers\account::class, 'age'])->name('change_age');
 Route::post('/change_email', [App\Http\Controllers\account::class, 'email'])->name('change_email');
+
+Route::get('send-mail', [EmailController::class, 'sendWelcomeEmail']);
