@@ -11,8 +11,7 @@
                         </div>
                     @endif
                     @if (Auth::check())
-                        <a class="nav-link" href="{{ route('appointment') }}"></a>
-                        <a class="nav-link" href="{{ route('appointmentForOther') }}">{{__('Prendre rendez-vous Autrui')}}</a>
+                        <a class="nav-link" href="{{ route('appointment',['id_doctor' => $doctor->id]) }}"></a>
                         <h3>{{__("Vous prenez rendez-vous pour quelqu'un d'autre :")}}</h3>
                         <form method ="POST" action="{{route('newAppointment')}}">
 

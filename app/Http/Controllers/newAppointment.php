@@ -13,18 +13,18 @@ use phpDocumentor\Reflection\Types\Null_;
 
 class newAppointment extends Controller
 {
-    public function getpage()
+    public function getpage($id_doctor)
     {
         $user = Auth::user();
-        $doctor = User::find(1);
+        $doctor = User::find($id_doctor);
         $schedules = Schedule::where('doctor_id', $doctor->id)->whereNull('patient_id')->get();
         return view('appointment', compact('doctor','schedules','user'));
     }
 
-    public function otherAppointment()
+    public function otherAppointment($id_doctor)
     {
         $user = Auth::user();
-        $doctor = User::find(1);
+        $doctor = User::find($id_doctor);
         $schedules = Schedule::where('doctor_id', $doctor->id)->where('patient_id', Null)->get();
         return view('takeAppointmentForSomeone', compact('doctor','schedules','user'));
     }

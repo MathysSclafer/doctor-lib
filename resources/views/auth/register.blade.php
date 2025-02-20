@@ -16,7 +16,7 @@
                             <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Type d\'utilisateur') }}</label>
 
                             <div class="col-md-6">
-                                <select id="job" class="form-control @error('job') is-invalid @enderror" name="job" required>
+                                <select id="role" class="form-control @error('job') is-invalid @enderror" name="role" required>
                                     <option value="" disabled selected>Choisissez un type</option>
                                     <option value="patient">Patient</option>
                                     <option value="medecin">Médecin</option>

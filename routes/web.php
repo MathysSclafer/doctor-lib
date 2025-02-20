@@ -41,20 +41,16 @@ Route::get('/manage/appointment{schedule}/delete', [ManageAppointmentController:
 Route::get('/manage/appointment{schedule}/update', [ManageAppointmentController::class, 'update'])->name('manage.update');
 Route::put('/appointment/{id}/modified', [ManageAppointmentController::class, 'saveUpdate'])->name('appointment.modified');
 
-Route::get('/appointment', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
+Route::get('/appointment/{id_doctor?}', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
 
-Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
+Route::get('/appointmentOther/{id_doctor?}', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
-Route::post('/', [AppointmentController::class, 'create'])->name('appointment.create');
-Route::post('/', [AppointmentController::class, 'store'])->name('appointment.store');
 Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');
-Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 Route::post('/home', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::post('/schedule/{schedule}/modify', [ScheduleController::class, 'update'])->name('schedule.update');
 Route::delete('/schedule/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedule.delete');
-Route::get('/doctor/{id?}', [App\Http\Controllers\ScheduleController::class, 'index'])->name('schedule');
 Route::get('/schedule/{schedule}/modify', [App\Http\Controllers\ScheduleController::class, 'indexModify'])->name('schedule.modify');
 
 
