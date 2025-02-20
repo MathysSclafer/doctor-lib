@@ -21,7 +21,7 @@ class newAppointment extends Controller
 
         return view('welcome', compact('patientsCount', 'medecinsCount'));
     }
-    public function getpage($id_doctor)
+    public function getpage($id_doctor = null)
     {
         $user = Auth::user();
         $doctor = User::find($id_doctor);
@@ -49,7 +49,7 @@ class newAppointment extends Controller
         }
     }
 
-    public function otherAppointment($id_doctor)
+    public function otherAppointment($id_doctor = null)
     {
         $user = Auth::user();
         $doctor = User::find($id_doctor);
