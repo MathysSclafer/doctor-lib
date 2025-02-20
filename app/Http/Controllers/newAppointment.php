@@ -27,6 +27,9 @@ class newAppointment extends Controller
         elseif (is_null($schedules) || empty($schedules)) {
             return view('welcome');
         }
+        elseif ($user -> id == $id_doctor) {
+            return view('profil');
+        }
         else{
             return view('appointment', compact('doctor','schedules','user'));
         }
