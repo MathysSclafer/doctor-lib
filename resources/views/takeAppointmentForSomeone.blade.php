@@ -19,6 +19,7 @@
 
                             <input type="hidden" id="patient_id" name="patient_id" value="{{$user->id}}">
                             <input type="hidden" id="doctor_id" name="doctor_id" value="{{$doctor->id }}">
+                            <input type="hidden" id="type" name="type" value="{{$doctor->job}}">
                             <div class="row mb-3">
                                 <label>{{__('Nom')}}</label>
                                 <input id="patient_name" type="text" class="form-control @error('patient_name') is-invalid @enderror" name="patient_name" required autocomplete="patient_name">
@@ -36,7 +37,7 @@
                                 <input id="patient_email" type="patient_email" class="form-control @error('email') is-invalid @enderror" name="patient_email" value="{{ old('email') }}" required autocomplete="patient_email">
                             </div>
                             <div class="row mb-3">
-                                <label>{{__('Votre rendez vous sera avec le docteur ')}}{{$doctor->name}}</label>
+                                <label>{{__('Votre rendez vous sera avec le')}}{{$doctor -> job}}{{__(' ')}}{{$doctor->name}}</label>
                             </div>
 
                             <div class="mb-3">
@@ -55,7 +56,7 @@
 
                             <div class="mb-3">
                                 <label>{{__('Choisissez une type de rendez-vous')}}</label>
-                                <select id="type" name="type" required>
+                                <select id="description" name="description" required>
                                     <option value="Nothing">
                                         {{ __('--------------------Type de rendez-vous--------------------') }}
                                     </option>
@@ -73,9 +74,12 @@
                                 </button>
                             </div>
                         </form>
-                    @else
-                        {{ route('login') }}
-                    @endif
+                        @else
+                            <h1>{{__('Il faut se connecter')}}</h1>
+                            <form action="{{ route('login') }}">
+                                <button type="submit" class="btn btn-primary">Se connecter</button>
+                            </form>
+                        @endif
                 </div>
             </div>
         </div>

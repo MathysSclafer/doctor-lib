@@ -29,6 +29,7 @@ class Appointment extends Authenticatable
         'patient_first_name',
         'patient_email',
         'type',
+        'description',
     ];
 
 
