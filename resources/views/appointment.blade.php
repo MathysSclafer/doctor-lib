@@ -71,10 +71,7 @@
                     </div>
                 </form>
             @else
-                {{__('Il faut se connecter')}}
-                <form action="{{ route('login') }}">
-                    <button type="submit">Se connecter</button>
-                </form>
+                {{ route('login') }}
 
             @endif
 </div>

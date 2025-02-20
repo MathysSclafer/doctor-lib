@@ -16,17 +16,35 @@ class newAppointment extends Controller
     public function getpage($id_doctor)
     {
         $user = Auth::user();
+
         $doctor = User::find($id_doctor);
         $schedules = Schedule::where('doctor_id', $doctor->id)->whereNull('patient_id')->get();
-        return view('appointment', compact('doctor','schedules','user'));
+        if(is_null($id_doctor)){
+            return view('welcome');
+        }
+        elseif (is_null($schedules) || empty($schedules)) {
+            return view('welcome');
+        }
+        else{
+            return view('appointment', compact('doctor','schedules','user'));
+        }
     }
 
     public function otherAppointment($id_doctor)
     {
         $user = Auth::user();
+
         $doctor = User::find($id_doctor);
-        $schedules = Schedule::where('doctor_id', $doctor->id)->where('patient_id', Null)->get();
-        return view('takeAppointmentForSomeone', compact('doctor','schedules','user'));
+        $schedules = Schedule::where('doctor_id', $doctor->id)->whereNull('patient_id')->get();
+        if(is_null($id_doctor)){
+            return view('welcome');
+        }
+        elseif (is_null($schedules) || empty($schedules)) {
+            return view('welcome');
+        }
+        else{
+            return view('appointment', compact('doctor','schedules','user'));
+        }
     }
 
     public function store(Request $request)
