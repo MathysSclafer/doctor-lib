@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRatingRequest;
 use App\Models\Rating;
 use App\Models\User;
 use Illuminate\Http\Request;
+use function Laravel\Prompts\search;
 
 class UserController extends Controller
 {
@@ -22,6 +23,8 @@ class UserController extends Controller
         ]);
 
         $this->updateNotation($data['user_id']);
+
+        return view('search');
     }
 
     public function updateNotation($doctor_id)
@@ -29,7 +32,5 @@ class UserController extends Controller
         $averageRating = Rating::where('user_id', $doctor_id)->avg('rating');
 
         User::where('id', $doctor_id)->update(['rating' => $averageRating]);
-
-        return view('search');
     }
 }

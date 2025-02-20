@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use PHPUnit\TextUI\XmlConfiguration\UpdateSchemaLocation;
 
 class ScheduleController extends Controller
@@ -164,9 +165,9 @@ class ScheduleController extends Controller
     }
 
 
-    public function showDoctor($id){
+    public function showDoctor(User $doctor){
 
-        $doctor = User::findOrFail($id);
+        $this->authorize('viewDoctor', $doctor);
 
         $schedules = \App\Models\Schedule::where('doctor_id', $doctor->id)->get()->map(function($schedule){
             return [

@@ -78,14 +78,21 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @auth
-                            @unless(Route::is('home'))
+                            @if(!Route::is('home') && auth()->user()->role === "medecin")
                                 <li class="nav-item">
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('home') }}">{{ __('Votre profil') }}</a>
+                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('admin', ['id' => auth()->user()->id]) }}">{{ __('Votre profil') }}</a>
                                 </li>
-                            @endunless
+                            @endif
+                            @if(Route::is('home') && auth()->user()->role === "patient")
+                                    <li class="nav-item">
+                                        <a class="nav-link font-quicksand !font-semibold" href="{{ route('home') }}">{{ __('Votre profil') }}</a>
+                                    </li>
+                            @endif
                         @endauth
+
                         @guest
                             @if (Route::has('login'))
+                                <li>
                                     <a class="nav-link font-quicksand !font-semibold" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                 </li>
                             @endif
@@ -209,6 +216,20 @@
                 });
             });
         });
+
+            document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll(".btn-noter");
+            const userIdInput = document.getElementById("user_id_input");
+
+            buttons.forEach(button => {
+            button.addEventListener("click", function () {
+            const doctorId = this.getAttribute("data-id");
+            userIdInput.value = doctorId;
+        });
+        });
+        });
+    </script>
+
 
     </script>
 @endif

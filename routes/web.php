@@ -23,17 +23,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/search/{search?}', [ScheduleController::class, 'search'])->name('search');
 
-Route::post('/', [\App\Http\Controllers\AppointmentController::class, 'store'])->name('appointment.store');
-
 Route::post('/schedule/{schedule}/modify', [\App\Http\Controllers\ScheduleController::class, 'update'])->name('schedule.update');
 
 Route::delete('/schedule/{schedule}/delete', [\App\Http\Controllers\ScheduleController::class, 'delete'])->name('schedule.delete');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/doctor/{id?}', [App\Http\Controllers\ScheduleController::class, 'showDoctor'])->name('doctor');
-
-Route::get('/search/{search?}', [App\Http\Controllers\ScheduleController::class, 'search'])->name('search');
+Route::get('/doctor/{doctor}', [App\Http\Controllers\ScheduleController::class, 'showDoctor'])->name('doctor');
 
 Route::get('/schedule/{schedule}/modify', [App\Http\Controllers\ScheduleController::class, 'indexModify'])->name('schedule.modify');
 
@@ -61,6 +57,8 @@ Route::post('/change_first_name', [App\Http\Controllers\account::class, 'first_n
 Route::post('/change_age', [App\Http\Controllers\account::class, 'age'])->name('change_age');
 Route::post('/change_email', [App\Http\Controllers\account::class, 'email'])->name('change_email');
 
-Route::post('/rating', [\App\Http\Controllers\UserController::class, 'storeNotation'])->name('rating');
+Route::post('/', [\App\Http\Controllers\UserController::class, 'storeNotation'])->name('rating');
 
 Route::get('send-mail', [EmailController::class, 'sendWelcomeEmail']);
+
+Route::get('/admin/{id?}', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');

@@ -2,6 +2,7 @@
 
 @php
     $count = 0;
+    $user_id = 0;
 @endphp
 
 
@@ -38,7 +39,10 @@
                                     @endif
                                 </p>
 
-                                <button data-toggle="modal" data-target="#modalAddSchedule">Noter</button>
+                                <button class="btn-noter" data-id="{{ $result->id }}" data-toggle="modal" data-target="#modalAddSchedule">
+                                    Noter
+                                </button>
+
 
 
                                 <p class="flex items-center gap-2 mb-0 !font-semibold">
@@ -93,7 +97,8 @@
                         <form action="{{route('rating')}}" method="POST">
                             @csrf
 
-                            <input class="hidden" type="number" name="user_id" value="{{$result->id}}">
+                            <input class="" type="number" id="user_id_input" name="user_id" value="">
+
 
                             <label for="rating1" class="rate">
                                 <input type="radio" id="rating1" name="rating" value="1" class="rate">
