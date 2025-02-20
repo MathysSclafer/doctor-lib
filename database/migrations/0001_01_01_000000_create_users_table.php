@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('age');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('job')->nullable();
             $table->string('area');
             $table->string('city');
             $table->double('rating')->nullable();

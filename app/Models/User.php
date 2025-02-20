@@ -16,6 +16,16 @@ class User extends Authenticatable
         return $this->hasMany(Appointment::class);
     }
 
+    public function patient()
+    {
+        return $this->hasRole('patient');
+    }
+
+    public function isntPatient()
+    {
+        return $this->hasRole('medecin');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +38,7 @@ class User extends Authenticatable
         'first_name',
         'age',
         'email',
+        'job',
         'password',
         'area',
         'city',

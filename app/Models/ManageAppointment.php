@@ -9,7 +9,7 @@ class ManageAppointment extends Model
     protected $table = 'appointment';
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'doctor_id');
     }
     protected $fillable = [
         'id',
@@ -22,5 +22,6 @@ class ManageAppointment extends Model
         'doctor_id',
         'schedule_id',
         'type',
+        'description',
     ];
 }

@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\ManageAppointment;
 use App\Models\Schedule;
 use App\Models\User;
-use App\Policies\DoctorPolicy;
+use App\Policies\ManageAppointmentPolicy;
 use App\Policies\SchedulePolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -29,5 +30,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         Gate::policy(Schedule::class, SchedulePolicy::class);
         Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(ManageAppointment::class, ManageAppointmentPolicy::class);
     }
 }

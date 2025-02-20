@@ -29,8 +29,8 @@ class Appointment extends Authenticatable
         'patient_first_name',
         'patient_email',
         'type',
+        'description',
     ];
-
 
     /**
      * Get the attributes that should be cast.
