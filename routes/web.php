@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmailController;
 use \App\Models\User;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AppointmentController;
@@ -41,12 +42,11 @@ Route::get('/manage/appointment{schedule}/delete', [ManageAppointmentController:
 Route::get('/manage/appointment{schedule}/update', [ManageAppointmentController::class, 'update'])->name('manage.update');
 Route::put('/appointment/{id}/modified', [ManageAppointmentController::class, 'saveUpdate'])->name('appointment.modified');
 
-Route::get('/appointment', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
+Route::get('/appointment/{id_doctor?}', [App\Http\Controllers\newAppointment::class, 'getpage'])->name('appointment');
 
-Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
+Route::get('/appointmentOther/{id_doctor?}', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
 Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');
-Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 Route::post('/home', [ScheduleController::class, 'store'])->name('schedule.store');
@@ -62,3 +62,5 @@ Route::post('/change_age', [App\Http\Controllers\account::class, 'age'])->name('
 Route::post('/change_email', [App\Http\Controllers\account::class, 'email'])->name('change_email');
 
 Route::post('/rating', [\App\Http\Controllers\UserController::class, 'storeNotation'])->name('rating');
+
+Route::get('send-mail', [EmailController::class, 'sendWelcomeEmail']);

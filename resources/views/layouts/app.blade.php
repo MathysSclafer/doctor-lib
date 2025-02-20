@@ -140,13 +140,13 @@
     if (Route::is('home')) {
         $route = route('schedule.modify', ['schedule' => '__schedule_id__']);
     } elseif (Route::is('schedule') || Route::is('search') || Route::is("doctor")) {
-        $route = route('appointment', ['schedule' => '__schedule_id__']);
+        $route = route('appointment', ['id_doctor' => '__doctor_id__', 'schedule' => '__schedule_id__']);
     }
 @endphp
 
 @if(Route::is('home') || Route::is('schedule') || Route::is('search') || Route::is("doctor"))
     <script>
-        allSchedules = @json($schedules['schedules']);
+        allSchedules  = @json($schedules['schedules']);
         console.log(allSchedules);
 
         let route = "{{ $route }}";
@@ -163,8 +163,7 @@
             events: allSchedules,
             callbacks: {
                 onEventClick(calendarEvent) {
-                    let dynamicRoute = route.replace('__schedule_id__', calendarEvent.id);
-
+                    let dynamicRoute = route.replace('__doctor_id__', calendarEvent.people).replace('__schedule_id__', calendarEvent.id);
                     window.location.href = dynamicRoute;
                 }
             }
