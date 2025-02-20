@@ -75,30 +75,32 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    @auth()
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link font-quicksand !font-semibold" href="{{ route('manage.index') }}">{{ __('Gérez vos rendez-vous') }}</a>
                         </li>
                     </ul>
+                    @endauth
 
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @auth
                             @unless(Route::is('home'))
                                 <li class="nav-item">
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('home') }}">{{ __('Votre profile') }}</a>
+                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('home') }}">{{ __('Votre profil') }}</a>
                                 </li>
                             @endunless
                         @endauth
                         @guest
                             @if (Route::has('login'))
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                                 </li>
                             @endif
                         @else
@@ -109,15 +111,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
                                     <a class="dropdown-item" href="{{ route('profileSection') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('acount-form').submit();">
-                                        {{ __('Profil') }}
+                                        {{ __('Modifier profil') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Déconnexion') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -146,13 +148,13 @@
     if (Route::is('home')) {
         $route = route('schedule.modify', ['schedule' => '__schedule_id__']);
     } elseif (Route::is('schedule') || Route::is('search') || Route::is("doctor")) {
-        $route = route('appointment', ['schedule' => '__schedule_id__']);
+        $route = route('appointment', ['id_doctor' => '__doctor_id__', 'schedule' => '__schedule_id__']);
     }
 @endphp
 
 @if(Route::is('home') || Route::is('schedule') || Route::is('search') || Route::is("doctor"))
     <script>
-        allSchedules = @json($schedules['schedules']);
+        allSchedules  = @json($schedules['schedules']);
         console.log(allSchedules);
 
         let route = "{{ $route }}";
@@ -169,8 +171,7 @@
             events: allSchedules,
             callbacks: {
                 onEventClick(calendarEvent) {
-                    let dynamicRoute = route.replace('__schedule_id__', calendarEvent.id);
-
+                    let dynamicRoute = route.replace('__doctor_id__', calendarEvent.people).replace('__schedule_id__', calendarEvent.id);
                     window.location.href = dynamicRoute;
                 }
             }
@@ -180,9 +181,43 @@
 
         $(document).ready(function () {
             $("button[data-target='#modalAddSchedule']").on("click", function () {
-                $("#modalAddSchedule").modal('toggle');
+                const modal = $("#modalAddSchedule");
+
+                if (modal.hasClass("show")) {
+                    modal.modal('hide');
+                } else {
+                    modal.modal('show');
+                }
+            });
+
+            $("#modalAddSchedule").on("hidden.bs.modal", function () {
+                $(this).removeClass("show").hide();
+                $("body").removeClass("modal-open");
+                $(".modal-backdrop").remove();
+            });
+
+            $("#modalAddSchedule .btn-secondary").on("click", function () {
+                location.reload();
             });
         });
+
+    </script>
+@endif
+
+@if(Route::is('search'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const stars = document.querySelectorAll(".rate input");
+
+            stars.forEach((star, index) => {
+                star.addEventListener("change", function () {
+                    stars.forEach((s, i) => {
+                        s.nextElementSibling.style.color = i <= index ? "gold" : "gray";
+                    });
+                });
+            });
+        });
+
     </script>
 @endif
 

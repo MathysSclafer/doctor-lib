@@ -17,9 +17,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Créer une nouvelle horaire</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form action="{{route('schedule.store')}}" method="POST">
@@ -75,20 +72,8 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                         <button type="submit" class="btn btn-primary">{{ __("Ajouter l'horaire") }}</button>
                     </div>
-                    <form action="{{ route('schedule.index') }}">
-                        <button type="submit">Gérer vos rendez-vous</button>
                     </form>
-                </form>
-                    {{ __('You are logged in!') }}
-
-                </div>
-                    <div class="button">
-                        <form action="{{ route('appointment') }}">
-                            <button type="submit">Prendre rendez-vous</button>
-                        </form>
-                    </div>
             </div>
-            <br>
 
         </div>
     </div>

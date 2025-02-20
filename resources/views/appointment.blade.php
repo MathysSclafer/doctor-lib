@@ -10,7 +10,7 @@
         @endif
         @if (Auth::check())
                 <p class=" text-center">Vous ne prenez pas rendez-vous pour vous ?
-                    <a class="hover:!text-blue-400 text-decoration-none" href="{{ route('appointmentForOther') }}">{{__('cliquez ici')}}</a>
+                    <a class="hover:!text-blue-400 text-decoration-none" href="{{ route('appointmentForOther',['id_doctor' => $doctor->id])}}">{{__('cliquez ici')}}</a>
                 </p>
                 <h3 class="text-center !font-black">
                     {{__('VOTRE RENDEZ-VOUS')}}</h3>
@@ -71,10 +71,7 @@
                     </div>
                 </form>
             @else
-                {{__('Il faut se connecter')}}
-                <form action="{{ route('login') }}">
-                    <button type="submit">Se connecter</button>
-                </form>
+                {{ route('login') }}
 
             @endif
 </div>

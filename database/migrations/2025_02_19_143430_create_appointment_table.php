@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('doctor_id');
             $table->foreignId('schedule_id')->constrained('schedule');
             $table->string('type');
+            $table->integer('doctor_rating')->nullable();
             $table->timestamps();
         });
     }

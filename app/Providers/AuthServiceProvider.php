@@ -7,10 +7,11 @@ use App\Models\Schedule;
 use App\Policies\ManageAppointmentPolicy;
 use App\Policies\SchedulePolicy;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Appointment;
+use App\Policies\appointmentPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
-
     protected $policies = [
         Schedule::class => SchedulePolicy::class,
         ManageAppointment::class => ManageAppointmentPolicy::class,
@@ -20,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**

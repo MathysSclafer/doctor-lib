@@ -27,6 +27,11 @@ class HomeController extends Controller
     public function index()
     {
         $schedules = \App\Models\Schedule::where('doctor_id', Auth::id())->get()->map(function($schedule){
+            if ($schedule->patient) {
+                $patient_id = $schedule->patient->id;
+            } else {
+                $patient_id = null;
+            }
             return [
                 'id' => $schedule->id,
                 'title' => '',
@@ -34,6 +39,7 @@ class HomeController extends Controller
                 'location' => $schedule->doctor->city,
                 'start' => $schedule->date . ' ' . $schedule->begin_time,
                 'end' => $schedule->date . ' ' . $schedule->end_time,
+                'calendarId' => $patient_id,
             ];
         });
 

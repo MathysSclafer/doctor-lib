@@ -4617,6 +4617,10 @@
                                                 __html: getTimeStamp(calendarEvent, $app.config.locale.value),
                                             },
                                         }),
+                                        jsxRuntime.jsx("span", {
+                                            className: `ml-auto mr-2`,
+                                            children: `${calendarEvent.calendarId !== null ? "Créneau reservé" : "Pas de reservation"}`
+                                        }),
                                     ],
                                 }),
                             ],

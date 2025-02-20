@@ -4625,7 +4625,7 @@
                                                     ]
                                                 }),
                                                 jsxRuntime.jsxs("div", {
-                                                    className: "detail-item mb-2 text-sm font-medium",
+                                                    className: "detail-item mb-2 text-sm font-medium w-55",
                                                     children: [
                                                         jsxRuntime.jsx("span", {
                                                             className: `label text-gray-500  ${calendarEvent.calendarId !== null ? "!text-white" : ""}`,
