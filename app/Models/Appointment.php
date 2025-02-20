@@ -31,7 +31,6 @@ class Appointment extends Authenticatable
         'type',
     ];
 
-
     /**
      * Get the attributes that should be cast.
      *

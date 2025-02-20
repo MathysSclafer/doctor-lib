@@ -22,11 +22,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/search/{search?}', [ScheduleController::class, 'search'])->name('search');
 
-Route::post('/', [\App\Http\Controllers\AppointmentController::class, 'store'])->name('appointment.store');
 
-Route::post('/schedule/{schedule}/modify', [\App\Http\Controllers\ScheduleController::class, 'update'])->name('schedule.update');
 
-Route::delete('/schedule/{schedule}/delete', [\App\Http\Controllers\ScheduleController::class, 'delete'])->name('schedule.delete');
+Route::post('/schedule/{schedule}/modify', [ScheduleController::class, 'update'])->name('schedule.update');
+
+Route::delete('/schedule/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedule.delete');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -45,8 +45,7 @@ Route::get('/appointment', [App\Http\Controllers\newAppointment::class, 'getpage
 
 Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
-Route::post('/', [AppointmentController::class, 'create'])->name('appointment.create');
-Route::post('/', [AppointmentController::class, 'store'])->name('appointment.store');
+
 Route::post('/appointment', [App\Http\Controllers\newAppointment::class, 'store'])->name('newAppointment');
 Route::get('/appointmentOther', [App\Http\Controllers\newAppointment::class, 'otherAppointment'])->name('appointmentForOther');
 
@@ -54,7 +53,6 @@ Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.in
 Route::post('/home', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::post('/schedule/{schedule}/modify', [ScheduleController::class, 'update'])->name('schedule.update');
 Route::delete('/schedule/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedule.delete');
-Route::get('/doctor/{id?}', [App\Http\Controllers\ScheduleController::class, 'index'])->name('schedule');
 Route::get('/schedule/{schedule}/modify', [App\Http\Controllers\ScheduleController::class, 'indexModify'])->name('schedule.modify');
 
 

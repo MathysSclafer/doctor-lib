@@ -70,11 +70,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('search') }}">{{ __('Prendez un rendez-vous') }}</a>
+                            <a class="nav-link font-quicksand !font-semibold" href="{{ route('search') }}">{{ __('Prendre un rendez-vous') }}</a>
                         </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link font-quicksand !font-semibold" href="{{ route('manage.index') }}">{{ __('Gérez vos rendez-vous') }}</a>
+                        </li>
+                    </ul>
+
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @auth
