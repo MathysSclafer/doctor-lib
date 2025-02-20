@@ -135,8 +135,8 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                <button type="submit" class="btn btn-primary !px-7">
+                                    {{ __("S'inscrire") }}
                                 </button>
                             </div>
                         </div>

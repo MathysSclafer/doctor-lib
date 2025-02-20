@@ -139,6 +139,12 @@ class ScheduleController extends Controller
             ->orWhereIn('patient_id', $userIds)
             ->get()
             ->map(function ($schedule) {
+
+                if ($schedule->patient) {
+                    $patient_id = $schedule->patient->id;
+                } else {
+                    $patient_id = null;
+                }
                 return [
                     'id' => $schedule->id,
                     'title' => '',
@@ -146,7 +152,7 @@ class ScheduleController extends Controller
                     'location' => $schedule->doctor->city,
                     'start' => $schedule->date . ' ' . $schedule->begin_time,
                     'end' => $schedule->date . ' ' . $schedule->end_time,
-                    'calendarId' => optional($schedule->patient)->id,
+                    'calendarId' => $patient_id,
                 ];
             });
 

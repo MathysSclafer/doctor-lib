@@ -80,19 +80,19 @@
                         @auth
                             @unless(Route::is('home'))
                                 <li class="nav-item">
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('home') }}">{{ __('Votre profile') }}</a>
+                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('home') }}">{{ __('Votre profil') }}</a>
                                 </li>
                             @endunless
                         @endauth
                         @guest
                             @if (Route::has('login'))
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link font-quicksand !font-semibold" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                                 </li>
                             @endif
                         @else
@@ -106,12 +106,12 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Déconnexion') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('profileSection') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('acount-form').submit();">
-                                        {{ __('Profil') }}
+                                        {{ __('Modifier profil') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -174,9 +174,29 @@
 
         $(document).ready(function () {
             $("button[data-target='#modalAddSchedule']").on("click", function () {
-                $("#modalAddSchedule").modal('toggle');
+                const modal = $("#modalAddSchedule");
+
+                if (modal.hasClass("show")) {
+                    modal.modal('hide');
+                } else {
+                    modal.modal('show');
+                }
+            });
+
+            $("#modalAddSchedule").on("hidden.bs.modal", function () {
+                $(this).removeClass("show").hide();
+                $("body").removeClass("modal-open");
+                $(".modal-backdrop").remove();
+            });
+
+            $("#modalAddSchedule .btn-secondary").on("click", function () {
+                location.reload();
             });
         });
+
+
+
+
     </script>
 @endif
 

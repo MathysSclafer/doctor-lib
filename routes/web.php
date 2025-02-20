@@ -54,7 +54,6 @@ Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.in
 Route::post('/home', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::post('/schedule/{schedule}/modify', [ScheduleController::class, 'update'])->name('schedule.update');
 Route::delete('/schedule/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedule.delete');
-Route::get('/doctor/{id?}', [App\Http\Controllers\ScheduleController::class, 'index'])->name('schedule');
 Route::get('/schedule/{schedule}/modify', [App\Http\Controllers\ScheduleController::class, 'indexModify'])->name('schedule.modify');
 
 
