@@ -103,15 +103,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Déconnexion') }}
-                                    </a>
                                     <a class="dropdown-item" href="{{ route('profileSection') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('acount-form').submit();">
                                         {{ __('Modifier profil') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Déconnexion') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -194,8 +194,22 @@
             });
         });
 
+    </script>
+@endif
 
+@if(Route::is('search'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const stars = document.querySelectorAll(".rate input");
 
+            stars.forEach((star, index) => {
+                star.addEventListener("change", function () {
+                    stars.forEach((s, i) => {
+                        s.nextElementSibling.style.color = i <= index ? "gold" : "gray";
+                    });
+                });
+            });
+        });
 
     </script>
 @endif

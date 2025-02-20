@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('area');
             $table->string('city');
+            $table->double('rating')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

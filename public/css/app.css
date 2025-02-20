@@ -197,8 +197,27 @@
 
 .register-active{
   background-color: #2b7fff !important;
-
 }
+
+.rate input {
+  display: none;
+}
+
+.rate i {
+  color: gray;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.rate input:checked + i {
+  color: gold !important;
+}
+
+
+
+
+
+
 
 body {
   margin: 0;

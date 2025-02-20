@@ -29,12 +29,24 @@
                                 </p>
 
 
+                                <p class="flex items-center gap-2 !font-semibold">
+                                    <i class="fa-solid fa-star"></i>
+                                    @if($result->rating === null)
+                                        Aucune note
+                                    @else
+                                        {{ number_format($result->rating, 2) }}
+                                    @endif
+                                </p>
+
+                                <button data-toggle="modal" data-target="#modalAddSchedule">Noter</button>
+
+
                                 <p class="flex items-center gap-2 mb-0 !font-semibold">
                                     <i class="fa-solid fa-clock "></i>
                                     Disponibilité :
                                     <div class="flex flex-col">
                                     @foreach($schedules['schedules'] as $schedule)
-                                        @if($schedule['calendarId'] == $result->id)
+                                        @if($schedule['calendarId'] === null)
                                             <a href="" class="!font-semibold">
                                                 {{ $schedule['start'] }} <br>
                                             </a>
@@ -69,4 +81,53 @@
         </div>
     @endif
     <div>
+
+
+        <div class="modal fade" id="modalAddSchedule" tabindex="-1" role="dialog" aria-labelledby="modalAddSchedule" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Créer une nouvelle horaire</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{route('rating')}}" method="POST">
+                            @csrf
+
+                            <input class="hidden" type="number" name="user_id" value="{{$result->id}}">
+
+                            <label for="rating1" class="rate">
+                                <input type="radio" id="rating1" name="rating" value="1" class="rate">
+                                <i class="fa-solid fa-star"></i>
+                            </label>
+
+                            <label for="rating2" class="rate">
+                                <input type="radio" id="rating2" name="rating" value="2" class="rate">
+                                <i class="fa-solid fa-star"></i>
+                            </label>
+
+                            <label for="rating3" class="rate">
+                                <input type="radio" id="rating3" name="rating" value="3" class="rate">
+                                <i class="fa-solid fa-star"></i>
+                            </label>
+
+                            <label for="rating4" class="rate">
+                                <input type="radio" id="rating4" name="rating" value="4" class="rate">
+                                <i class="fa-solid fa-star"></i>
+                            </label>
+
+                            <label for="rating5" class="rate">
+                                <input type="radio" id="rating5" name="rating" value="5" class="rate">
+                                <i class="fa-solid fa-star"></i>
+                            </label>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn btn-primary">{{ __("Confirmer la note") }}</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 @endsection

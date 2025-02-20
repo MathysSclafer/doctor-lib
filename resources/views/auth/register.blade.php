@@ -16,7 +16,7 @@
                             <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Type d\'utilisateur') }}</label>
 
                             <div class="col-md-6">
-                                <select id="job" class="form-control @error('job') is-invalid @enderror" name="job" required>
+                                <select id="job" class="form-control @error('job') is-invalid @enderror" name="role" value="{{ old('role') }}" required>
                                     <option value="" disabled selected>Choisissez un type</option>
                                     <option value="patient">Patient</option>
                                     <option value="medecin">Médecin</option>
@@ -43,7 +43,8 @@
                             <label for="first_name" class="col-md-4 col-form-label text-md-end">{{ __('Prénom') }}</label>
 
                             <div class="col-md-6">
-                                <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" required>
+                                <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name"
+                                       value="{{ old('first_name') }}" required>
 
                                 @error('first_name')
                                 <span class="invalid-feedback" role="alert">
@@ -58,7 +59,8 @@
                             <label for="age" class="col-md-4 col-form-label text-md-end">{{ __('Age') }}</label>
 
                             <div class="col-md-6">
-                                <input id="age" type="number" class="form-control @error('age') is-invalid @enderror" name="age" required autocomplete="age">
+                                <input id="age" type="number" class="form-control @error('age') is-invalid @enderror" name="age"
+                                       value="{{ old('age') }}" required autocomplete="age">
 
                                 @error('age')
                                 <span class="invalid-feedback" role="alert">
@@ -110,7 +112,7 @@
                             <label for="area" class="col-md-4 col-form-label text-md-end">{{ __('Région') }}</label>
 
                             <div class="col-md-6">
-                                <input id="area" type="text" class="form-control @error('area') is-invalid @enderror" name="area" required autocomplete="area">
+                                <input id="area" type="text" class="form-control @error('area') is-invalid @enderror" name="area" value="{{ old('area') }}" required autocomplete="area">
 
                                 @error('area')
                                 <span class="invalid-feedback" role="alert">
@@ -123,7 +125,7 @@
                             <label for="city" class="col-md-4 col-form-label text-md-end">{{ __('Ville') }}</label>
 
                             <div class="col-md-6">
-                                <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" required autocomplete="city">
+                                <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="city">
 
                                 @error('city')
                                 <span class="invalid-feedback" role="alert">

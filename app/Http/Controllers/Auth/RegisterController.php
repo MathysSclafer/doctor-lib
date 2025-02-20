@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'area' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
         ]);
+
     }
 
     /**
