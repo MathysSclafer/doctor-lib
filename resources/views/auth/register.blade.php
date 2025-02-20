@@ -30,7 +30,7 @@
                             <div class="col-md-6">
                                 <select id="job" class="form-control @error('job') is-invalid @enderror" name="job" value="{{ old('job') }}" required>
                                     <option value="" disabled selected>Choisissez votre spécialisation</option>
-                                    <option value="anesthésite">Anesthésite</option>
+                                    <option value="anesthésiste">Anesthésiste</option>
                                     <option value="cardiologue">Cardiologue</option>
                                     <option value="chirurgien-dentiste">Chirurgien dentiste</option>
                                     <option value="dentiste">Dentiste</option>
