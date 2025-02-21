@@ -50,7 +50,7 @@
                                     Disponibilité :
                                     <div class="flex flex-col">
                                     @foreach($schedules['schedules'] as $schedule)
-                                        @if($schedule['calendarId'] === null)
+                                        @if($schedule['calendarId'] === null && $schedule['people'] == $result->id)
                                             <a href="" class="!font-semibold">
                                                 {{ $schedule['start'] }} <br>
                                             </a>
@@ -60,10 +60,14 @@
                                             @endphp
 
                                             @if($count >= 5)
+                                                @php
+                                                    $count = 0;
+                                                @endphp
                                                 @break
                                             @endif
                                         @endif
                                     @endforeach
+
                                 </div>
                                 </p>
                             </div>
@@ -97,11 +101,10 @@
                         <form action="{{route('rating')}}" method="POST">
                             @csrf
 
-                            <input type="">
 
                             <input type="text" name="search" value="{{$search}}">
 
-                            <input class="" type="number" id="user_id_input" name="user_id" value="">
+                            <input class="hidden" type="number" id="user_id_input" name="user_id" value="">
 
 
                             <label for="rating1" class="rate">

@@ -22,18 +22,23 @@ class StoreScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => 'required',
-            'begin_time' => 'required',
-            'end_time' => 'required',
+            'date' => 'required|date',
+            'begin_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i',
         ];
     }
 
-    public function messages(): array{
+
+    public function messages(): array
+    {
         return [
-            'date.required' => 'Date is required',
-            'date.date' => 'Date format is incorrect',
-            'begin_time.required' => 'Begin time is required',
-            'begin_time.time' => 'Begin time format is incorrect',
+            'date.required' => 'La date est obligatoire.',
+            'date.date' => 'Le format de la date est incorrect.',
+            'begin_time.required' => "L'horaire de début est obligatoire.",
+            'begin_time.date_format' => "Le format de l'horaire de début est incorrect.",
+            'end_time.required' => "L'horaire de fin est obligatoire.",
+            'end_time.date_format' => "Le format de l'horaire de fin est incorrect.",
         ];
     }
+
 }

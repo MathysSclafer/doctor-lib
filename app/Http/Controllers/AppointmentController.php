@@ -24,7 +24,6 @@ class AppointmentController extends Controller
     public function getpage($id_doctor = null, $schedule = null)
     {
 
-
         $user = Auth::user();
         $doctor = User::find($id_doctor);
         if(is_null($id_doctor) || is_null($doctor)){
@@ -97,7 +96,7 @@ class AppointmentController extends Controller
             $schedule-> patient_id = $request->patient_id;
 
 
-            $Appoint = AppointmentController::create([
+            $Appoint = Appointment::create([
                 'date' => $schedule->date,
                 'time' => $schedule->begin_time,
                 'doctor_id'=> $request -> doctor_id,

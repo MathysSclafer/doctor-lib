@@ -65,9 +65,9 @@ class ScheduleController extends Controller
                     ->where('end_time', '>', $beginTime);
             })
             ->exists();
-
         if ($conflict) {
-            return back()->withInput()->with('error', 'Les horaires sélectionnés se chevauchent avec un événement existant.');
+            return back()->withInput()->with('error', 'Les horaires
+             sélectionnés se chevauchent avec un horaire existant.');
         }
 
         Schedule::create([
@@ -77,7 +77,8 @@ class ScheduleController extends Controller
             'end_time' => $endTime,
         ]);
 
-        return redirect()->route('home')->with('success', 'L\'événement a été ajouté avec succès!');
+        return redirect()->route('home')->with('success',
+            'L\'événement a été ajouté avec succès!');
     }
 
     public function update(StoreScheduleRequest $data, Schedule $schedule)
@@ -132,8 +133,7 @@ class ScheduleController extends Controller
             })
             ->get();
 
-
-        // Récupération des IDs des utilisateurs trouvés
+        // Récupere ID des utilisateurs trouvés
         $userIds = $users->pluck('id');
 
         $schedules = Schedule::whereIn('doctor_id', $userIds)
