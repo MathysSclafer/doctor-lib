@@ -57,8 +57,7 @@
 
     @if(Route::is('admin'))
         <div class="container text-center mt-4">
-            <h1 class="display-4 fw-bold text-bg-success">📅 Mes Rendez-vous</h1>
-            <p class="lead text-muted">Retrouvez ici tous vos prochains patients.</p>
+            <h1 class="display-4 fw-bold text-bg-success">📅 Mes Patients</h1>
             <hr class="my-4">
         </div>
 
