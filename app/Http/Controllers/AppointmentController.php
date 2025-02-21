@@ -24,7 +24,6 @@ class AppointmentController extends Controller
     public function getpage($id_doctor = null, $schedule = null)
     {
 
-
         $user = Auth::user();
         $doctor = User::find($id_doctor);
         if(is_null($id_doctor) || is_null($doctor)){
