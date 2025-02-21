@@ -80,9 +80,10 @@
                 <thead class="table-light">
                 <tr>
                     <th class="p-3"> PATIENT </th>
-                    <th class="p-3"> COMMENTAIRE </th>
+                    <th class="p-3"> TYPE </th>
                     <th class="p-3"> DATE </th>
                     <th class="p-3"> HEURE </th>
+                    <th class="p-3"> DESCRIPTION </th>
                     <th class="p-3"> </th>
                     <th class="p-3"> </th>
                     <th class="p-3"> </th>
@@ -96,6 +97,7 @@
                             <td class="p-3 table-light">{{$appointment->type}}</td>
                             <td class="p-3 table-light">{{$appointment->date}}</td>
                             <td class="p-3 table-light">{{$appointment->time}}</td>
+                            <td class="p-3 table-light">{{$appointment->description}}</td>
                             <td class="p-3 table-light"><a href="{{ route('manage.finished', $appointment) }}" class="btn-success btn-sm"> Terminé </a></td>
                             <td class="p-3 table-light"><a href="{{ route('manage.update', $appointment) }}" class="btn-primary btn-sm"> Modifier </a></td>
                             <td class="p-3 table-light"><a href="{{ route('manage.delete', $appointment) }}" class="btn-danger btn-sm"> Annuler </a></td>
