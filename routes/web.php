@@ -40,7 +40,7 @@ Route::get('/appointmentOther/{id_doctor?}', [AppointmentController::class, 'oth
 Route::get('/search/{search?}', [ScheduleController::class, 'search'])->name('search');
 Route::get('/doctor/{doctor}', [ScheduleController::class, 'showDoctor'])->name('doctor');
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
-Route::post('/home', [ScheduleController::class, 'store'])->name('schedule.store');
+Route::match(['get', 'post'],'/home', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::post('/schedule/{schedule}/modify', [ScheduleController::class, 'update'])->name('schedule.update');
 Route::delete('/schedule/{schedule}/delete', [ScheduleController::class, 'delete'])->name('schedule.delete');
 Route::get('/schedule/{schedule}/modify', [ScheduleController::class, 'indexModify'])->name('schedule.modify');

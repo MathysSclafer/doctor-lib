@@ -34,7 +34,7 @@
                             <label class="text-gray-700 font-medium text-end">{{ __('Adresse mail ') }}</label>
                             <input id="patient_email" type="patient_email" class="form-control @error('email') is-invalid @enderror" name="patient_email" value="{{ old('email') }}" required autocomplete="patient_email">
 
-                            <label class="text-gray-700 font-medium text-end">{{__('Votre rendez-vous sera avec le docteur')}}{{$doctor -> job}}{{__(' ')}}{{$doctor->name}}</label>
+                            <label class="text-gray-700 font-medium text-end">{{__('Votre rendez-vous sera avec le/la ')}}{{$doctor -> job}}{{__(' ')}}{{$doctor->name}}</label>
                         </div>
                     </div>
 

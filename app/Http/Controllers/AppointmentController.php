@@ -97,7 +97,7 @@ class AppointmentController extends Controller
             $schedule-> patient_id = $request->patient_id;
 
 
-            $Appoint = AppointmentController::create([
+            $Appoint = Appointment::create([
                 'date' => $schedule->date,
                 'time' => $schedule->begin_time,
                 'doctor_id'=> $request -> doctor_id,
