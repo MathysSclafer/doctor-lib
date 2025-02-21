@@ -68,6 +68,6 @@ class ManageAppointmentController extends Controller
             'type' => $request->input('type'),
         ]);
 
-        return redirect()->route('manage.index');
+        return redirect()->route('admin');
     }
 }

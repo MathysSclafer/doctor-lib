@@ -45,7 +45,7 @@
                             </button>
                         </form>
 
-                        <a href="{{ route('manage.index') }}" class="btn btn-secondary w-100 mt-2">
+                        <a href="{{ route('admin') }}" class="btn btn-secondary w-100 mt-2">
                             {{ __('Annuler') }}
                         </a>
                     </div>

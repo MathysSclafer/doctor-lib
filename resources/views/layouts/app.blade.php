@@ -76,19 +76,11 @@
 
                     <!-- Right Side Of Navbar -->
                     @auth()
-                        @if(\Illuminate\Support\Facades\Auth::user()->role === 'medecin')
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link font-quicksand !font-semibold" href="{{route('admin', ['id' => auth()->user()->id])}}">{{ __('Gérez vos rendez-vous') }}</a>
-                                </li>
-                            </ul>
-                            @else
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
                                     <a class="nav-link font-quicksand !font-semibold" href="{{ route('manage.index') }}">{{ __('Gérez vos rendez-vous') }}</a>
                                 </li>
                             </ul>
-                        @endif
                     @endauth
 
                     <ul class="navbar-nav ms-auto">
